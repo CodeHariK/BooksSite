@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 const DiscoverAuthors: React.FC = () => {
   const authors = [
@@ -19,7 +19,7 @@ const DiscoverAuthors: React.FC = () => {
           <div className="image-box-grid-items" style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '20px' }}>
             {authors.map((author) => (
               <div key={author.name} className="image-box-grid-item">
-                <a href="#">
+                <Link to={`/author/${encodeURIComponent(author.name)}`}>
                   <img
                     width="154"
                     height="154"
@@ -28,7 +28,7 @@ const DiscoverAuthors: React.FC = () => {
                     loading="lazy"
                   />
                   <p>{author.name}</p>
-                </a>
+                </Link>
               </div>
             ))}
           </div>

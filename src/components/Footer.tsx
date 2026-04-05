@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
           <div className="main-footer-container">
             {/* Footer Logo + Contact */}
             <div className="footer-logo-container">
-              <a href="/">
+              <Link to="/">
                 <img
                   src="/temp_assets/logo_1.svg"
                   alt="Logo"
@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
                   width="171"
                   height="59"
                 />
-              </a>
+              </Link>
               <p>Crossword Bookstore draws book lovers of all ages into a community where they can discover great books, engage with booklovers and meet their favourite literary personalities.</p>
               <p>
                 <a href="mailto:estore@crossword.in">estore@crossword.in</a>

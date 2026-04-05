@@ -1,116 +1,83 @@
 import React from 'react';
-
-const AnnouncementBar: React.FC = () => {
-  return (
-    <section id="shopify-section-announcement-bar" className="shopify-section announcement-bar-design">
-      <div className="announcement-bar" style={{ display: 'block', backgroundColor: '#ffffff', color: '#000000' }}>
-        <div className="announcement-bar-slider">
-          <div className="announcement-bar-slide active" style={{ color: '#000000' }}>
-            <p><strong>Payday Sale! Get ₹100 Off</strong> on orders above ₹1099. Use code: <strong>PD100</strong>.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Header: React.FC = () => {
+  const { user } = useAuth();
+
   return (
-    <header className="header-sticky">
-      <AnnouncementBar />
-      <div id="shopify-section-main-header" className="shopify-section">
-        <div className="main-header-container">
-          <div className="container">
-            <div className="header-container">
-              {/* LOGO */}
-              <a href="/" className="header-logo-container">
+    <header className="shopify-section header-section sticky">
+      <div className="main-header-container">
+        <div className="container">
+          <div className="header-container">
+            {/* Mobile Menu Icon */}
+            <div className="mob-menu d-768-block" style={{ display: 'none' }}>
+              <img src="/temp_assets/menu.svg" alt="Menu" width="30" height="30" />
+            </div>
+
+            {/* Logo */}
+            <div className="header-logo-container">
+              <Link to="/">
                 <img
+                  src="/temp_assets/logo_1.svg"
+                  alt="Crossword Logo"
                   width="171"
                   height="59"
-                  className="logo-main"
-                  src="/temp_assets/logo(1).svg"
-                  alt="Crossword.in"
+                  className="header-logo"
                 />
-              </a>
+              </Link>
+            </div>
 
-              {/* MOBILE ICONS */}
-              <div className="mob-menu">
-                <img
-                  width="36"
-                  height="36"
-                  src="/temp_assets/mob-search.svg"
-                  alt="search"
-                  className="wz-search-icon"
-                  style={{ cursor: 'pointer' }}
-                />
-                <a href="/account" className="add-mob-menu show-account-btn" id="rzp-account-icon">
-                  <img width="18" height="18" src="/temp_assets/user.svg" alt="User" />
-                </a>
+            {/* Desktop Navigation */}
+            <nav className="menu-list-container d-767-none">
+              <ul className="menu-list">
+                <li className="menu-list-item"><Link to="/">Home</Link></li>
+                <li className="menu-list-item"><Link to="/authors">Authors</Link></li>
+                <li className="menu-list-item"><Link to="/author-submission">Submit Manuscript</Link></li>
+              </ul>
+            </nav>
+
+            {/* Search Bar Placeholder */}
+            <div className="search-container d-767-none">
+              <div className="search-bar">
+                <input type="text" placeholder="Search for books, authors..." />
+                <button className="search-submit">
+                  <img src="/temp_assets/search.svg" alt="Search" width="20" height="20" />
+                </button>
+              </div>
+            </div>
+
+            {/* Icons List (Account, Wishlist, Cart) */}
+            <div className="icons-list">
+              {/* Account Icon */}
+              <div className="icons-list-item show-account-btn">
+                {user ? (
+                  <Link to="/profile" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'inherit' }}>
+                    <img src="/temp_assets/account.svg" alt="Profile" width="30" height="30" />
+                    <span className="d-767-none" style={{ fontSize: '12px' }}>Profile</span>
+                  </Link>
+                ) : (
+                  <Link to="/login" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'inherit' }}>
+                    <img src="/temp_assets/account.svg" alt="Login" width="30" height="30" />
+                    <span className="d-767-none" style={{ fontSize: '12px' }}>Login</span>
+                  </Link>
+                )}
               </div>
 
-              {/* MAIN MENU */}
-              <div className="menu-list-container">
-                <ul className="menu-list" role="menubar">
-                  <li className="menu-item" role="menuitem">
-                    <a href="#">Books</a>
-                  </li>
-                  <li className="menu-item" role="menuitem">
-                    <a href="#">Stationery</a>
-                  </li>
-                  <li className="menu-item" role="menuitem">
-                    <a href="#">Toys</a>
-                  </li>
-                  <li className="menu-item" role="menuitem">
-                    <a href="#">Gifts</a>
-                  </li>
-                </ul>
+              {/* Wishlist Icon */}
+              <div className="icons-list-item wishlist d-767-none">
+                <Link to="/" className="wishlist-link">
+                  <img src="/temp_assets/wishlist.svg" alt="Wishlist" width="30" height="30" />
+                  <span className="wishlist-count">0</span>
+                </Link>
               </div>
 
-              {/* SEARCH */}
-              <div className="search-container">
-                <form className="wz-search-form">
-                  <div className="search-bar">
-                    <img
-                      className="search-submit"
-                      aria-hidden="true"
-                      width="20"
-                      height="20"
-                      src="/temp_assets/search.svg"
-                      alt="search"
-                      style={{ cursor: 'pointer', pointerEvents: 'auto' }}
-                    />
-                    <input
-                      type="text"
-                      name="search"
-                      id="search"
-                      placeholder="Search For ISB"
-                      className="wizzy-search-input"
-                    />
-                  </div>
-                </form>
-              </div>
-
-              {/* ICONS */}
-              <div className="icons-list">
-                <div className="icons-list-item">
-                  <a href="#">
-                    <img width="30" height="30" src="/temp_assets/gift.svg" alt="gift" />
-                  </a>
-                </div>
-                <div className="icons-list-item">
-                  <a href="/account" className="show-account-btn">
-                    <img width="30" height="30" src="/temp_assets/account.svg" alt="account" />
-                  </a>
-                </div>
-                <div className="icons-list-item icons-list-item-block cartopen">
-                  <img
-                    id="cartIcon"
-                    width="30"
-                    height="30"
-                    src="/temp_assets/empty_cart.svg"
-                    alt="Cart Empty"
-                  />
-                </div>
+              {/* Cart Icon */}
+              <div className="icons-list-item cart-button cartopen">
+                <Link to="/" className="cart-link" style={{ display: 'flex', alignItems: 'center' }}>
+                  <img src="/temp_assets/shopping-bag.svg" alt="Cart" width="30" height="30" />
+                  <span className="d-767-none" style={{ marginLeft: '5px', fontSize: '12px' }}>Bag</span>
+                </Link>
               </div>
             </div>
           </div>

@@ -1,0 +1,132 @@
+.profile-page-container {
+  min-height: 80vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: #f4f7f6;
+  padding: 60px 20px;
+}
+
+.profile-card {
+  width: 100%;
+  max-width: 650px;
+  background-color: #fff;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.profile-title {
+  font-size: 32px !important;
+  margin-bottom: 12px !important;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.profile-subtitle {
+  color: #666;
+  font-size: 16px;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.profile-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+}
+
+.profile-input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.profile-input:focus {
+  border-color: #CEABEB;
+  box-shadow: 0 0 0 4px rgba(206, 171, 235, 0.1);
+  outline: none;
+}
+
+.profile-input:disabled {
+  background-color: #f9f9f9;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.save-btn {
+  width: 100%;
+  justify-content: center;
+  height: 54px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.author-section {
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px dashed #eee;
+  text-align: center;
+}
+
+.author-promo-text {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.submit-manuscript-btn {
+  background-color: #1a1a1a !important;
+  color: #fff !important;
+  width: 100%;
+  justify-content: center;
+  height: 54px;
+}
+
+.submit-manuscript-btn:hover {
+  background-color: #333 !important;
+}
+
+.profile-message {
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.profile-message.success {
+  background-color: #e6fffa;
+  color: #2c7a7b;
+  border: 1px solid #b2f5ea;
+}
+
+.profile-message.error {
+  background-color: #fff5f5;
+  color: #c53030;
+  border: 1px solid #fed7d7;
+}

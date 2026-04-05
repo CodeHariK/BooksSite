@@ -1,6 +1,7 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
+import { allBooks } from '../data/books';
 
-interface ProductProps {
+export interface ProductProps {
   title: string;
   author: string;
   price: number;
@@ -11,11 +12,11 @@ interface ProductProps {
   buttonText?: string;
 }
 
-const ProductCard: React.FC<ProductProps> = ({ title, author, price, originalPrice, image, discount, releaseDate, buttonText = "Add to Bag" }) => {
+export const ProductCard: React.FC<ProductProps> = ({ title, author, price, originalPrice, image, discount, releaseDate, buttonText = "Add to Bag" }) => {
   return (
     <div className="product-item">
       <div className="product-item-container">
-        <a href="#">
+        <Link to={`/book/${encodeURIComponent(title)}`}>
           <div className="product-item-img-container cust-produt">
             <img
               className="product-card-first-img"
@@ -26,7 +27,7 @@ const ProductCard: React.FC<ProductProps> = ({ title, author, price, originalPri
               alt={title}
             />
           </div>
-        </a>
+        </Link>
         {releaseDate && (
           <div className="release-timer">
             <img className="timer-icon" width="20" height="20" src="/temp_assets/icon.svg" alt="Timer Icon" loading="lazy" />
@@ -37,7 +38,9 @@ const ProductCard: React.FC<ProductProps> = ({ title, author, price, originalPri
           <div className="product-item-content">
             <p className="product-item-title">{title}</p>
             <div className="author-min-space">
-              <p className="product-item-author">{author}</p>
+              <p className="product-item-author">
+                <Link to={`/author/${encodeURIComponent(author)}`} style={{ color: 'inherit', opacity: 1 }}>{author}</Link>
+              </p>
             </div>
             <div className="product-item-price-wrapper">
               <div className="product-item-price-container">
@@ -80,12 +83,7 @@ const ProductCard: React.FC<ProductProps> = ({ title, author, price, originalPri
 };
 
 export const BestSellers: React.FC = () => {
-  const products = [
-    { title: "Project Hail Mary", author: "Andy Weir", price: 509, originalPrice: 599, image: "/temp_assets/81II81yH0iL._SL1500.jpg", discount: "90" },
-    { title: "The Stationery Shop Of Tehran", author: "Marjan Kamali", price: 382, originalPrice: 450, image: "/temp_assets/monthly_book1-35.jpg", discount: "68" },
-    { title: "The Indian Stock Market Simplified", author: "Anant Ladha", price: 339, originalPrice: 399, image: "/temp_assets/the-indian-stock-market-simplified-bk0517645-44848152740057.jpg", discount: "60" },
-    { title: "Atomic Habits", author: "James Clear", price: 764, originalPrice: 899, image: "/temp_assets/Atomic_Habits_1_1.webp", discount: "135" }
-  ];
+  const products = allBooks.slice(0, 4);
 
   return (
     <div className="shopify-section collection-product-listing-sec">
@@ -118,12 +116,7 @@ export const BestSellers: React.FC = () => {
 };
 
 export const ComingSoon: React.FC = () => {
-  const products = [
-    { title: "King Of Gluttony", author: "Ana Huang", price: 539, originalPrice: 599, image: "/temp_assets/81tojBl5WML._SL1500.jpg", discount: "60", releaseDate: "2026-04-28", buttonText: "Pre-Order Now" },
-    { title: "Release Me", author: "Tahereh Mafi", price: 449, originalPrice: 499, image: "/temp_assets/81hFvO35kxL._SL1500_a669c084-3cda-4aae-ae01-a60afb30de72.jpg", discount: "50", releaseDate: "2026-04-07", buttonText: "Pre-Order Now" },
-    { title: "Before I Knew I Loved You", author: "Toshikazu Kawaguchi", price: 495, originalPrice: 550, image: "/temp_assets/81AWcSLd_dL._SL1500.jpg", discount: "55", releaseDate: "2026-05-21", buttonText: "Pre-Order Now" },
-    { title: "Guilt", author: "Keigo Higashino", price: 629, originalPrice: 699, image: "/temp_assets/812xE-_QztL._SY425.jpg", discount: "70", releaseDate: "2026-04-09", buttonText: "Pre-Order Now" }
-  ];
+  const products = allBooks.slice(4, 8);
 
   return (
     <div className="shopify-section collection-product-listing-sec">

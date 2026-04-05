@@ -1,0 +1,159 @@
+.auth-page-container {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  background-color: #f4f7f6;
+  padding: 40px 20px;
+}
+
+.auth-card-wrapper {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 500px;
+  min-width: 400px;
+}
+
+@media (max-width: 480px) {
+  .auth-card-wrapper {
+    min-width: 100%;
+  }
+}
+
+.auth-card {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.auth-title {
+  font-size: 28px !important;
+  margin-bottom: 10px !important;
+  font-weight: 600;
+}
+
+.auth-subtitle {
+  color: #666;
+  font-size: 15px;
+}
+
+.auth-form-group {
+  margin-bottom: 20px;
+}
+
+.auth-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  transition: border-color 0.2s;
+}
+
+.auth-input:focus {
+  border-color: #CEABEB;
+  outline: none;
+}
+
+.auth-error-message {
+  color: #d9534f;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.auth-submit-btn {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 20px;
+  height: 50px;
+}
+
+.auth-divider {
+  position: relative;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.auth-divider-text {
+  background-color: #fff;
+  padding: 0 10px;
+  position: relative;
+  z-index: 1;
+  color: #999;
+  font-size: 14px;
+}
+
+.auth-divider-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #eee;
+}
+
+.google-auth-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.google-auth-btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.google-auth-btn:hover {
+  background-color: #f9f9f9;
+}
+
+.google-auth-btn:active {
+  transform: scale(0.98);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 15px;
+  color: #666;
+}
+
+.auth-switch-btn {
+  color: #CEABEB;
+  border: none;
+  background: none;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 5px;
+  text-decoration: underline;
+}
+
+.auth-switch-btn:hover {
+  color: #b38bd8;
+}
