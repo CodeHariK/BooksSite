@@ -29,6 +29,23 @@ const App: React.FC = () => {
         <div className="app-container">
           <Header />
           <main role="main" className="wizzy-main-content">
+            <div style={{ padding: '20px', textAlign: 'center', background: '#f0f0f0' }}>
+              <button 
+                onClick={async () => {
+                  alert('Calling function...');
+                  try {
+                    const res = await fetch('https://asia-south1-aghorin-2537f.cloudfunctions.net/helloWorld');
+                    const text = await res.text();
+                    alert('Response: ' + text);
+                  } catch (e) {
+                    alert('Error: ' + (e as Error).message);
+                  }
+                }}
+                style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: '#ffa100', color: 'white', border: 'none', borderRadius: '4px' }}
+              >
+                Test Hello World Function
+              </button>
+            </div>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/authors" element={<AuthorsPage />} />

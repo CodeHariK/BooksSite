@@ -116,11 +116,11 @@ const BookPage: React.FC = () => {
 
             <div className="pdp-features">
               <div className="pdp-feature">
-                <img width="50" height="50" src="//www.crossword.in/cdn/shop/files/Piracy_Free_6e5bce63-8a09-468b-a5f1-ba48366f3329.svg?v=1766726795" alt="Piracy Free" />
+                <img width="50" height="50" src="//www.aghorin.com/cdn/shop/files/Piracy_Free_6e5bce63-8a09-468b-a5f1-ba48366f3329.svg?v=1766726795" alt="Piracy Free" />
                 <p>Piracy Free</p>
               </div>
               <div className="pdp-feature">
-                <img width="50" height="50" src="//www.crossword.in/cdn/shop/files/Secure_Transactions_2f568076-104f-4cf1-9fb0-471805e41256.svg?v=1766726741" alt="Secure Transactions" />
+                <img width="50" height="50" src="//www.aghorin.com/cdn/shop/files/Secure_Transactions_2f568076-104f-4cf1-9fb0-471805e41256.svg?v=1766726741" alt="Secure Transactions" />
                 <p>Secure Transactions</p>
               </div>
             </div>

@@ -10,16 +10,16 @@ const Footer: React.FC = () => {
             <div className="footer-logo-container">
               <Link to="/">
                 <img
-                  src="/temp_assets/logo_1.svg"
+                  src="/aghorin_logo.png"
                   alt="Logo"
                   loading="lazy"
                   width="171"
                   height="59"
                 />
               </Link>
-              <p>Crossword Bookstore draws book lovers of all ages into a community where they can discover great books, engage with booklovers and meet their favourite literary personalities.</p>
+              <p>Aghorin Books draws book lovers of all ages into a community where they can discover great books, engage with booklovers and meet their favourite literary personalities.</p>
               <p>
-                <a href="mailto:estore@crossword.in">estore@crossword.in</a>
+                <a href="mailto:[EMAIL_ADDRESS]">[EMAIL_ADDRESS]</a>
               </p>
               <p>
                 <a href="tel:+91 85302 06759">+91 85302 06759</a>
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
                 <ul className="footer-menu-category-list">
                   <li className="footer-category-list-item"><a href="#">Books</a></li>
                   <li className="footer-category-list-item"><a href="#">Top 50</a></li>
-                  <li className="footer-category-list-item"><a href="#">Crossword Recommends</a></li>
+                  <li className="footer-category-list-item"><a href="#">Aghorin Recommends</a></li>
                   <li className="footer-category-list-item"><a href="#">Toys & Games</a></li>
                   <li className="footer-category-list-item"><a href="#">Stationery & Gifts</a></li>
                   <li className="footer-category-list-item"><a href="#">The Write Place</a></li>
@@ -87,7 +87,7 @@ const Footer: React.FC = () => {
 
           {/* Bottom Footer */}
           <div className="bottom-footer-container">
-            <p className="bottom-footer-content">© 2026 Crossword, All Rights Reserved.</p>
+            <p className="bottom-footer-content">© 2026 Aghorin Books, All Rights Reserved.</p>
             <div className="bottom-footer-social-links">
               <div className="bottom-footer-social-link">
                 <a href="#" target="_blank" rel="noopener">
