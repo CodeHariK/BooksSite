@@ -1,5 +1,7 @@
 {
-  "projects": {},
+  "projects": {
+    "default": "aghorin-2537f"
+  },
   "targets": {},
   "etags": {}
 }

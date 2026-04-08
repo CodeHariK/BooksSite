@@ -13,6 +13,9 @@ import AuthPage from './pages/AuthPage';
 import ProfilePage from './pages/ProfilePage';
 import { AuthProvider } from './context/AuthContext';
 
+import { functions } from './firebase';
+import { httpsCallable } from 'firebase/functions';
+
 const HomePage: React.FC = () => (
   <>
     <Hero />
@@ -32,12 +35,13 @@ const App: React.FC = () => {
             <div style={{ padding: '20px', textAlign: 'center', background: '#f0f0f0' }}>
               <button 
                 onClick={async () => {
-                  alert('Calling function...');
+                  alert('Calling helloWorld function...');
                   try {
-                    const res = await fetch('https://asia-south1-aghorin-2537f.cloudfunctions.net/helloWorld');
-                    const text = await res.text();
-                    alert('Response: ' + text);
+                    const helloWorld = httpsCallable(functions, 'helloWorld');
+                    const result = await helloWorld();
+                    alert('Response from Functions: ' + result.data);
                   } catch (e) {
+                    console.error(e);
                     alert('Error: ' + (e as Error).message);
                   }
                 }}

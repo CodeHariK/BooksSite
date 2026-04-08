@@ -1,0 +1,9 @@
+.gcloudignore
+.git
+.gitignore
+node_modules
+lib
+npm-debug.log
+firebase-debug.log
+firebase-debug.*.log
+firestore-debug.log
