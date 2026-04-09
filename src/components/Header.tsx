@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import './Header.css';
+
+
 
 const Header: React.FC = () => {
-  const { user } = useAuth();
+  const { user, userProfile, logout } = useAuth();
 
   return (
     <header className="shopify-section header-section sticky">
@@ -18,66 +21,47 @@ const Header: React.FC = () => {
             {/* Logo */}
             <div className="header-logo-container">
               <Link to="/">
-                <img
-                  src="/aghorin_logo.png"
-                  alt="Aghorin Logo"
-                  width="171"
-                  height="59"
-                  className="header-logo"
-                />
+                <img src="/aghorin_logo.png" alt="Aghorin Logo" width="171" height="59" className="header-logo" />
               </Link>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="menu-list-container d-767-none">
               <ul className="menu-list">
-                <li className="menu-list-item"><Link to="/">Home</Link></li>
                 <li className="menu-list-item"><Link to="/authors">Authors</Link></li>
-                <li className="menu-list-item"><Link to="/author-submission">Submit Manuscript</Link></li>
+                <li className="menu-list-item"><Link to="/contact">Contact Us</Link></li>
               </ul>
             </nav>
 
-            {/* Search Bar Placeholder */}
-            <div className="search-container d-767-none">
-              <div className="search-bar">
-                <input type="text" placeholder="Search for books, authors..." />
-                <button className="search-submit">
-                  <img src="/temp_assets/search.svg" alt="Search" width="20" height="20" />
-                </button>
-              </div>
-            </div>
+            <div className="d-767-none" style={{ flex: 1 }}></div>
 
-            {/* Icons List (Account, Wishlist, Cart) */}
+            {/* Icons List */}
             <div className="icons-list">
-              {/* Account Icon */}
-              <div className="icons-list-item show-account-btn">
+              <div className="icons-list-item profile-dropdown-container">
                 {user ? (
-                  <Link to="/profile" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'inherit' }}>
-                    <img src="/temp_assets/account.svg" alt="Profile" width="30" height="30" />
-                    <span className="d-767-none" style={{ fontSize: '12px' }}>Profile</span>
-                  </Link>
+                  <>
+                    <div className="profile-trigger" style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                      <img 
+                        src={userProfile?.imageUrl || "/temp_assets/account.svg"} 
+                        alt="Profile" 
+                        width="32" height="32" 
+                        style={{ borderRadius: '50%', objectFit: 'cover' }}
+                      />
+                      <span className="d-767-none" style={{ fontSize: '14px', fontWeight: '500', textTransform: 'capitalize' }}>
+                        {user.displayName || user.email?.split('@')[0]}
+                      </span>
+                    </div>
+                    <div className="profile-dropdown">
+                      <Link to="/profile" className="dropdown-item">View Profile</Link>
+                      <button onClick={logout} className="dropdown-item logout-btn">Logout</button>
+                    </div>
+                  </>
                 ) : (
                   <Link to="/login" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'inherit' }}>
                     <img src="/temp_assets/account.svg" alt="Login" width="30" height="30" />
                     <span className="d-767-none" style={{ fontSize: '12px' }}>Login</span>
                   </Link>
                 )}
-              </div>
-
-              {/* Wishlist Icon */}
-              <div className="icons-list-item wishlist d-767-none">
-                <Link to="/" className="wishlist-link">
-                  <img src="/temp_assets/wishlist.svg" alt="Wishlist" width="30" height="30" />
-                  <span className="wishlist-count">0</span>
-                </Link>
-              </div>
-
-              {/* Cart Icon */}
-              <div className="icons-list-item cart-button cartopen">
-                <Link to="/" className="cart-link" style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src="/temp_assets/shopping-bag.svg" alt="Cart" width="30" height="30" />
-                  <span className="d-767-none" style={{ marginLeft: '5px', fontSize: '12px' }}>Bag</span>
-                </Link>
               </div>
             </div>
           </div>
@@ -87,4 +71,6 @@ const Header: React.FC = () => {
   );
 };
 
+
 export default Header;
+

@@ -1,28 +1,22 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { 
   onAuthStateChanged, 
-  signInWithPopup, 
   signOut,
-  updateProfile
+  updateProfile,
+  createUserWithEmailAndPassword
 } from 'firebase/auth';
 import type { User } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { auth, googleProvider, db } from '../firebase';
-
-interface UserProfile {
-  displayName: string;
-  email: string;
-  phoneNumber?: string;
-  uid: string;
-}
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { auth, db } from '../firebase';
+import type { UserProfile, AuthorStatus } from '../types';
 
 interface AuthContextType {
   user: User | null;
   userProfile: UserProfile | null;
   loading: boolean;
-  loginWithGoogle: () => Promise<void>;
+  signUp: (email: string, password: string, displayName: string) => Promise<void>;
   logout: () => Promise<void>;
-  updateUserProfile: (data: { displayName?: string, phoneNumber?: string }) => Promise<void>;
+  updateUserProfile: (data: { displayName?: string, phoneNumber?: string, bio?: string, imageUrl?: string, authorStatus?: AuthorStatus }) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -44,17 +38,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           email: currentUser.email || '',
           displayName: currentUser.displayName || data.displayName || '',
           phoneNumber: data.phoneNumber || '',
+          isAdmin: data.isAdmin || false,
+          authorStatus: data.authorStatus || 'NO',
+          bio: data.bio || '',
+          imageUrl: data.imageUrl || '',
         });
       } else {
         // Create initial profile if it doesn't exist
-        const initialProfile = {
+        const initialProfile: UserProfile = {
           uid: currentUser.uid,
           email: currentUser.email || '',
           displayName: currentUser.displayName || '',
           phoneNumber: '',
+          isAdmin: false,
+          authorStatus: 'NO',
+          bio: '',
+          imageUrl: '',
+          createdAt: serverTimestamp() as any,
+          updatedAt: serverTimestamp() as any
         };
         await setDoc(userDocRef, initialProfile);
-        setUserProfile(initialProfile);
+        setUserProfile({
+          uid: initialProfile.uid,
+          email: initialProfile.email,
+          displayName: initialProfile.displayName,
+          phoneNumber: initialProfile.phoneNumber,
+          isAdmin: false,
+          authorStatus: 'NO',
+          bio: '',
+          imageUrl: '',
+        });
       }
     } catch (error) {
       console.error("Error fetching user profile:", error);
@@ -75,11 +88,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => unsubscribe();
   }, []);
 
-  const loginWithGoogle = async () => {
+
+
+  const signUp = async (email: string, password: string, displayName: string) => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const newUser = userCredential.user;
+
+      await updateProfile(newUser, { displayName });
+
+      const userDocRef = doc(db, 'users', newUser.uid);
+      await setDoc(userDocRef, {
+        uid: newUser.uid,
+        email: email,
+        displayName: displayName,
+        phoneNumber: '',
+        isAdmin: false,
+        authorStatus: 'NO',
+        bio: '',
+        imageUrl: '',
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      });
+
+      setUser(newUser);
+      await fetchUserProfile(newUser);
     } catch (error) {
-      console.error("Google Sign-in Error:", error);
+      console.error("Sign-up Error:", error);
       throw error;
     }
   };
@@ -93,26 +128,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const updateUserProfile = async (data: { displayName?: string, phoneNumber?: string }) => {
+  const updateUserProfile = async (data: { 
+    displayName?: string, 
+    phoneNumber?: string, 
+    bio?: string, 
+    imageUrl?: string,
+    authorStatus?: AuthorStatus
+  }) => {
     if (!user) throw new Error("No authenticated user found");
 
     try {
-      // 1. Update Firebase Auth (displayName)
       if (data.displayName) {
         await updateProfile(user, { displayName: data.displayName });
       }
 
-      // 2. Update/Create Firestore Profile
       const userDocRef = doc(db, 'users', user.uid);
       await setDoc(userDocRef, {
-        displayName: data.displayName || user.displayName || '',
-        email: user.email,
-        phoneNumber: data.phoneNumber || userProfile?.phoneNumber || '',
-        uid: user.uid,
-        updatedAt: new Date().toISOString()
+        ...data,
+        updatedAt: serverTimestamp()
       }, { merge: true });
 
-      // 3. Refresh local state
       await fetchUserProfile(user);
     } catch (error) {
       console.error("Error updating profile:", error);
@@ -121,7 +156,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, userProfile, loading, loginWithGoogle, logout, updateUserProfile }}>
+    <AuthContext.Provider value={{ user, userProfile, loading, signUp, logout, updateUserProfile }}>
       {!loading && children}
     </AuthContext.Provider>
   );
@@ -134,3 +169,4 @@ export const useAuth = () => {
   }
   return context;
 };
+

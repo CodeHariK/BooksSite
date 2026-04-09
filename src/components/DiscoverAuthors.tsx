@@ -1,14 +1,36 @@
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { collection, getDocs, limit, query, where } from 'firebase/firestore';
+import { db } from '../firebase';
+import type { UserProfile } from '../types';
 
 const DiscoverAuthors: React.FC = () => {
-  const authors = [
-    { name: "Sudha Murty", image: "/temp_assets/jk.png" },
-    { name: "Chetan Bhagat", image: "/temp_assets/jk.png" },
-    { name: "Ankur Warikoo", image: "/temp_assets/jk.png" },
-    { name: "Amish Tripathi", image: "/temp_assets/jk.png" },
-    { name: "Ruskin Bond", image: "/temp_assets/jk.png" },
-    { name: "J. K. Rowling", image: "/temp_assets/jk.png" }
-  ];
+  const [authors, setAuthors] = useState<UserProfile[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAuthors = async () => {
+      try {
+        // Fetch users who are established authors
+        const q = query(
+          collection(db, 'users'), 
+          where('authorStatus', '==', 'Ok'), 
+          limit(6)
+        );
+        const querySnapshot = await getDocs(q);
+        const authorsData = querySnapshot.docs.map(doc => doc.data() as UserProfile);
+        setAuthors(authorsData);
+      } catch (error) {
+        console.error("Error fetching authors:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAuthors();
+  }, []);
+
+  if (loading || authors.length === 0) return null;
 
   return (
     <div id="shopify-section-template--21194970333401__image_box_grid_ALmxwF" className="shopify-section image-box-grid-container">
@@ -18,16 +40,17 @@ const DiscoverAuthors: React.FC = () => {
           <p className="sec-desc">From timeless classics to modern favourites.</p>
           <div className="image-box-grid-items" style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '20px' }}>
             {authors.map((author) => (
-              <div key={author.name} className="image-box-grid-item">
-                <Link to={`/author/${encodeURIComponent(author.name)}`}>
+              <div key={author.uid} className="image-box-grid-item">
+                <Link to={`/author/${author.uid}`}>
                   <img
                     width="154"
                     height="154"
-                    src={author.image}
-                    alt={author.name}
+                    src={author.imageUrl || '/temp_assets/jk.png'}
+                    alt={author.displayName}
                     loading="lazy"
+                    style={{ borderRadius: '50%', objectFit: 'cover' }}
                   />
-                  <p>{author.name}</p>
+                  <p>{author.displayName}</p>
                 </Link>
               </div>
             ))}
@@ -39,3 +62,4 @@ const DiscoverAuthors: React.FC = () => {
 };
 
 export default DiscoverAuthors;
+

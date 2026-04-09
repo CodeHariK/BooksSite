@@ -1,16 +1,35 @@
 import { Timestamp } from 'firebase/firestore';
 
+export type AuthorStatus = 'Ok' | 'pending' | 'NO';
+
+export interface UserProfile {
+  uid: string;
+  email: string;
+  displayName: string;
+  phoneNumber?: string;
+  isAdmin: boolean;
+  authorStatus: AuthorStatus;
+  bio?: string;
+  imageUrl?: string;
+  createdAt?: Timestamp | string;
+  updatedAt?: Timestamp | string;
+}
+
 export interface Book {
+  id?: string;
   title: string;
-  author: string;
+  author: string; // The display name of the author
+  authorId: string; // Link to user.uid
   description?: string;
   coverImageUrl?: string;
-  image: string; // Required for current UI
+  image: string; // URL to storage or legacy temp_assets
   price: number;
   originalPrice?: number;
   discount?: string;
   status: 'Available' | 'Out of Stock';
   createdAt: Timestamp | string;
+  isPublished: boolean;
+  isBestSeller?: boolean;
   // Fields for PDP (Product Detail Page)
   summary?: string;
   pages?: number;
@@ -30,6 +49,7 @@ export interface BookOrder {
 }
 
 export interface AuthorSubmission {
+  userId: string;
   authorName: string;
   email: string;
   phone: string;
@@ -38,6 +58,7 @@ export interface AuthorSubmission {
   status: 'Unread' | 'Under Review' | 'Rejected';
   createdAt: Timestamp | string;
 }
+
 
 export interface ContactMessage {
   name: string;

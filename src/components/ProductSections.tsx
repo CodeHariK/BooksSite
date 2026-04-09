@@ -1,9 +1,13 @@
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { allBooks } from '../data/books';
+import { collection, getDocs, limit, query, where } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export interface ProductProps {
+  id: string;
   title: string;
   author: string;
+  authorId: string;
   price: number;
   originalPrice?: number;
   image: string;
@@ -12,11 +16,11 @@ export interface ProductProps {
   buttonText?: string;
 }
 
-export const ProductCard: React.FC<ProductProps> = ({ title, author, price, originalPrice, image, discount, releaseDate, buttonText = "Add to Bag" }) => {
+export const ProductCard: React.FC<ProductProps> = ({ id, title, author, authorId, price, originalPrice, image, discount, buttonText = "Add to Bag" }) => {
   return (
     <div className="product-item">
       <div className="product-item-container">
-        <Link to={`/book/${encodeURIComponent(title)}`}>
+        <Link to={`/book/${id}`}>
           <div className="product-item-img-container cust-produt">
             <img
               className="product-card-first-img"
@@ -28,18 +32,13 @@ export const ProductCard: React.FC<ProductProps> = ({ title, author, price, orig
             />
           </div>
         </Link>
-        {releaseDate && (
-          <div className="release-timer">
-            <img className="timer-icon" width="20" height="20" src="/temp_assets/icon.svg" alt="Timer Icon" loading="lazy" />
-            Releasing In <span className="countdown">22d : 6h : 19m : 11s</span>
-          </div>
-        )}
+
         <div className="product-item-content-container">
           <div className="product-item-content">
             <p className="product-item-title">{title}</p>
             <div className="author-min-space">
               <p className="product-item-author">
-                <Link to={`/author/${encodeURIComponent(author)}`} style={{ color: 'inherit', opacity: 1 }}>{author}</Link>
+                <Link to={`/author/${authorId}`} style={{ color: 'inherit', opacity: 1 }}>{author}</Link>
               </p>
             </div>
             <div className="product-item-price-wrapper">
@@ -83,7 +82,31 @@ export const ProductCard: React.FC<ProductProps> = ({ title, author, price, orig
 };
 
 export const BestSellers: React.FC = () => {
-  const products = allBooks.slice(0, 4);
+  const [products, setProducts] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBestSellers = async () => {
+      try {
+        const q = query(
+          collection(db, 'books'), 
+          where('isPublished', '==', true),
+          where('isBestSeller', '==', true), 
+          limit(4)
+        );
+        const querySnapshot = await getDocs(q);
+        const productsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as ProductProps));
+        setProducts(productsData);
+      } catch (error) {
+        console.error("Error fetching Best Sellers:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBestSellers();
+  }, []);
+
+  if (loading) return null;
 
   return (
     <div className="shopify-section collection-product-listing-sec">
@@ -116,7 +139,31 @@ export const BestSellers: React.FC = () => {
 };
 
 export const ComingSoon: React.FC = () => {
-  const products = allBooks.slice(4, 8);
+  const [products, setProducts] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchComingSoon = async () => {
+      try {
+        const q = query(
+          collection(db, 'books'), 
+          where('isPublished', '==', true),
+          where('releaseDate', '!=', null), 
+          limit(4)
+        );
+        const querySnapshot = await getDocs(q);
+        const productsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as ProductProps));
+        setProducts(productsData);
+      } catch (error) {
+        console.error("Error fetching Coming Soon:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchComingSoon();
+  }, []);
+
+  if (loading) return null;
 
   return (
     <div className="shopify-section collection-product-listing-sec">

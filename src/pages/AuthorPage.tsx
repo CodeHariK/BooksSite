@@ -1,15 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { allBooks } from '../data/books';
-import { ProductCard } from '../components/ProductSections';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../firebase';
+import { ProductCard, type ProductProps } from '../components/ProductSections';
 
 const AuthorPage: React.FC = () => {
-  const { authorName } = useParams<{ authorName: string }>();
-  
-  const decodedAuthorName = decodeURIComponent(authorName || "");
-  const authorBooks = allBooks.filter(book => 
-    book.author.toLowerCase() === decodedAuthorName.toLowerCase()
-  );
+  const { authorId } = useParams<{ authorId: string }>();
+  const [authorBooks, setAuthorBooks] = useState<ProductProps[]>([]);
+  const [authorName, setAuthorName] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!authorId) return;
+      try {
+        // 1. Fetch Author Profile to get the name
+        const authorDoc = await getDocs(query(collection(db, 'users'), where('uid', '==', authorId)));
+        if (!authorDoc.empty) {
+          setAuthorName(authorDoc.docs[0].data().displayName || "Unknown Author");
+        } else {
+          setAuthorName("Unknown Author");
+        }
+
+        // 2. Query books by authorId
+        const q = query(
+          collection(db, 'books'), 
+          where('authorId', '==', authorId),
+          where('isPublished', '==', true)
+        );
+        const querySnapshot = await getDocs(q);
+        const booksData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as ProductProps));
+        setAuthorBooks(booksData);
+      } catch (error) {
+        console.error("Error fetching author data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [authorId]);
+
+  if (loading) {
+    return (
+      <div style={{ height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p>Loading books...</p>
+      </div>
+    );
+  }
+
 
   return (
     <div className="shopify-section collection-product-listing-sec" style={{ minHeight: '60vh', padding: '40px 0' }}>
@@ -18,7 +56,7 @@ const AuthorPage: React.FC = () => {
           <div className="container">
             <div className="collection-product-listing-title" style={{ marginBottom: '40px' }}>
               <div className="collection-product-listing-title-container">
-                <h2 className="sec-title">Books by {decodedAuthorName}</h2>
+                <h2 className="sec-title">Books by <span style={{ textTransform: 'capitalize' }}>{authorName}</span></h2>
                 <p className="sec-desc">Explore the collection from your favorite author.</p>
               </div>
             </div>

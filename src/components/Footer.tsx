@@ -66,24 +66,14 @@ const Footer: React.FC = () => {
                 <ul className="footer-menu-category-list">
                   <li className="footer-category-list-item"><a href="#">Careers</a></li>
                   <li className="footer-category-list-item"><a href="#">Become a Franchisee</a></li>
-                  <li className="footer-category-list-item"><a href="#">Contact Us</a></li>
+                  <li className="footer-category-list-item"><Link to="/contact">Contact Us</Link></li>
                   <li className="footer-category-list-item"><a href="#">Track your order</a></li>
                 </ul>
               </div>
             </div>
           </div>
 
-          {/* Popular Searches */}
-          <div className="mysearch-container">
-            <div className="mysearch-title">Popular Searches</div>
-            <div className="mysearch-list">
-              {['New Arrivals', 'Best Sellers', 'Birthday Gifts', 'Romance Novels', 'Mystery & Thrillers', 'Self-Help Bestsellers', 'Children’s Picture Books', 'Board Games & Puzzles', 'Educational & STEM Toys', 'Fantasy Books'].map((term) => (
-                <div key={term} className="mysearch-item">
-                  <a href="#">{term}</a>
-                </div>
-              ))}
-            </div>
-          </div>
+
 
           {/* Bottom Footer */}
           <div className="bottom-footer-container">

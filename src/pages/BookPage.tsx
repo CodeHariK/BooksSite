@@ -1,13 +1,77 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { allBooks } from '../data/books';
+import { doc, getDoc, collection, addDoc } from 'firebase/firestore';
+import { db } from '../firebase';
+import { useAuth } from '../context/AuthContext';
+import type { Book } from '../types';
 
 const BookPage: React.FC = () => {
-  const { bookTitle } = useParams<{ bookTitle: string }>();
+  const { user, userProfile } = useAuth();
+  const { bookId } = useParams<{ bookId: string }>();
+  const [book, setBook] = useState<Book | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [leadFormData, setLeadFormData] = useState({
+    name: '',
+    phone: '',
+    city: ''
+  });
+  const [isLeadSubmitting, setIsLeadSubmitting] = useState(false);
+  const [leadMessage, setLeadMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
-  const decodedTitle = decodeURIComponent(bookTitle || "");
-  const book = allBooks.find(b => b.title.toLowerCase() === decodedTitle.toLowerCase());
+
+
+  useEffect(() => {
+    const fetchBook = async () => {
+      if (!bookId) return;
+      try {
+        const docRef = doc(db, 'books', bookId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const bookData = { id: docSnap.id, ...docSnap.data() } as Book;
+          
+          // Visibility Check: Only show if published, or if user is author/admin
+          if (!bookData.isPublished && 
+              (!user || (user.uid !== bookData.authorId && !userProfile?.isAdmin))) {
+            setError("This book is currently under review and is not yet public.");
+            setLoading(false);
+            return;
+          }
+
+          setBook(bookData);
+        } else {
+          setError("Book not found.");
+        }
+      } catch (error) {
+        console.error("Error fetching book:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBook();
+  }, [bookId, user, userProfile]);
+
+  if (loading) {
+    return (
+      <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>
+        <p>Loading book details...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>
+        <h2>{error}</h2>
+        <Link to="/" className="explore-cta" style={{ margin: '20px auto' }}>
+          <span>Back to Home</span>
+        </Link>
+      </div>
+    );
+  }
 
   if (!book) {
     return (
@@ -21,6 +85,50 @@ const BookPage: React.FC = () => {
   }
 
   const toggleSummary = () => setIsExpanded(!isExpanded);
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!book) return;
+    setIsLeadSubmitting(true);
+    setLeadMessage(null);
+
+    try {
+      const mailRef = collection(db, 'mail');
+      await addDoc(mailRef, {
+        to: 'dev.shark.run@gmail.com',
+        message: {
+          subject: `NEW BOOK ORDER REQUEST: ${book.title}`,
+          html: `
+            <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+              <h2 style="color: #ffa100;">Purchase Request Received</h2>
+              <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <p><strong>Book:</strong> ${book.title}</p>
+                <p><strong>Book ID:</strong> ${book.id}</p>
+              </div>
+              <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Customer Info</h3>
+              <p><strong>Name:</strong> ${leadFormData.name}</p>
+              <p><strong>Mobile:</strong> ${leadFormData.phone}</p>
+              <p><strong>City:</strong> ${leadFormData.city}</p>
+              <hr />
+              <p style="font-size: 12px; color: #666;">Contact the customer to fulfill the order.</p>
+            </div>
+          `
+        }
+      });
+      
+      setLeadMessage({ type: 'success', text: 'Request sent! We will contact you soon.' });
+      setTimeout(() => {
+        setIsModalOpen(false);
+        setLeadMessage(null);
+        setLeadFormData({ name: '', phone: '', city: '' });
+      }, 3000);
+    } catch (error) {
+      console.error("Error sending book lead:", error);
+      setLeadMessage({ type: 'error', text: 'Failed to send request.' });
+    } finally {
+      setIsLeadSubmitting(false);
+    }
+  };
 
   return (
     <div className="pdp-banner">
@@ -59,7 +167,7 @@ const BookPage: React.FC = () => {
               </div>
             </div>
 
-            <Link to={`/author/${encodeURIComponent(book.author)}`} className="pdp-author-name">
+            <Link to={`/author/${book.authorId}`} className="pdp-author-name">
               {book.author}
             </Link>
 
@@ -87,11 +195,11 @@ const BookPage: React.FC = () => {
 
             <div className="cta-container">
               <div className="cta-btn-container">
-                <button className="primary-btn addToCart">
+                <button className="primary-btn addToCart" onClick={() => setIsModalOpen(true)}>
                   Add to Bag
                   <img width="18" height="18" src="https://cdn.shopify.com/s/files/1/0975/6010/1045/files/shopping-bag.svg?v=1760623297" alt="add to cart" />
                 </button>
-                <button className="transparent-btn up-buyNow-btn addToCart">
+                <button className="transparent-btn up-buyNow-btn addToCart" onClick={() => setIsModalOpen(true)}>
                   Buy Now
                   <img width="16" height="16" src="https://cdn.shopify.com/s/files/1/0648/3066/9017/files/arrow-up-right_1.svg?v=1762170869" alt="buy now" />
                 </button>
@@ -176,6 +284,95 @@ const BookPage: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* Lead Generation Modal */}
+      {isModalOpen && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+          backdropFilter: 'blur(5px)'
+        }}>
+          <div style={{
+            backgroundColor: '#fff',
+            padding: '30px',
+            borderRadius: '16px',
+            width: '90%',
+            maxWidth: '450px',
+            position: 'relative',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
+          }}>
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              style={{ position: 'absolute', top: '20px', right: '20px', border: 'none', background: 'none', cursor: 'pointer', fontSize: '24px' }}>
+              &times;
+            </button>
+            <h3 style={{ marginBottom: '10px' }}>Request to Buy</h3>
+            <p style={{ fontSize: '14px', color: '#666', marginBottom: '20px' }}>Enter your details and we will contact you for payment and delivery.</p>
+            
+            <form onSubmit={handleLeadSubmit}>
+              <div style={{ marginBottom: '15px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px', fontWeight: 'bold' }}>Your Name</label>
+                <input 
+                  type="text" 
+                  required 
+                  value={leadFormData.name}
+                  onChange={(e) => setLeadFormData({...leadFormData, name: e.target.value})}
+                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
+                />
+              </div>
+              <div style={{ marginBottom: '15px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px', fontWeight: 'bold' }}>Mobile Number</label>
+                <input 
+                  type="tel" 
+                  required 
+                  value={leadFormData.phone}
+                  onChange={(e) => setLeadFormData({...leadFormData, phone: e.target.value})}
+                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
+                />
+              </div>
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px', fontWeight: 'bold' }}>City</label>
+                <input 
+                  type="text" 
+                  required 
+                  value={leadFormData.city}
+                  onChange={(e) => setLeadFormData({...leadFormData, city: e.target.value})}
+                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
+                />
+              </div>
+              
+              {leadMessage && (
+                <p style={{ 
+                  padding: '10px', 
+                  borderRadius: '6px', 
+                  marginBottom: '15px', 
+                  fontSize: '13px',
+                  backgroundColor: leadMessage.type === 'success' ? '#e6fffa' : '#fff5f5',
+                  color: leadMessage.type === 'success' ? '#2c7a7b' : '#c53030'
+                }}>
+                  {leadMessage.text}
+                </p>
+              )}
+
+              <button 
+                type="submit" 
+                disabled={isLeadSubmitting}
+                className="explore-cta" 
+                style={{ width: '100%', justifyContent: 'center', backgroundColor: '#ffa100' }}
+              >
+                <span>{isLeadSubmitting ? 'Sending...' : 'Confirm Request'}</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

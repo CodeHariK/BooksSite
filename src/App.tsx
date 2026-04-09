@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import { BestSellers, ComingSoon } from './components/ProductSections';
 import DiscoverAuthors from './components/DiscoverAuthors';
 import Footer from './components/Footer';
 import AuthorsPage from './pages/AuthorsPage';
@@ -11,19 +10,21 @@ import BookPage from './pages/BookPage';
 import AuthorSubmissionPage from './pages/AuthorSubmissionPage';
 import AuthPage from './pages/AuthPage';
 import ProfilePage from './pages/ProfilePage';
+import AdminPage from './pages/AdminPage';
+import SubmitBookPage from './pages/SubmitBookPage';
+import MigrationPage from './pages/MigrationPage';
+import ContactPage from './pages/ContactPage';
+import AllBooks from './components/AllBooks';
 import { AuthProvider } from './context/AuthContext';
-
-import { functions } from './firebase';
-import { httpsCallable } from 'firebase/functions';
 
 const HomePage: React.FC = () => (
   <>
     <Hero />
-    <BestSellers />
-    <ComingSoon />
+    <AllBooks />
     <DiscoverAuthors />
   </>
 );
+
 
 const App: React.FC = () => {
   return (
@@ -32,32 +33,18 @@ const App: React.FC = () => {
         <div className="app-container">
           <Header />
           <main role="main" className="wizzy-main-content">
-            <div style={{ padding: '20px', textAlign: 'center', background: '#f0f0f0' }}>
-              <button 
-                onClick={async () => {
-                  alert('Calling helloWorld function...');
-                  try {
-                    const helloWorld = httpsCallable(functions, 'helloWorld');
-                    const result = await helloWorld();
-                    alert('Response from Functions: ' + result.data);
-                  } catch (e) {
-                    console.error(e);
-                    alert('Error: ' + (e as Error).message);
-                  }
-                }}
-                style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: '#ffa100', color: 'white', border: 'none', borderRadius: '4px' }}
-              >
-                Test Hello World Function
-              </button>
-            </div>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/authors" element={<AuthorsPage />} />
-              <Route path="/author/:authorName" element={<AuthorPage />} />
-              <Route path="/book/:bookTitle" element={<BookPage />} />
+              <Route path="/author/:authorId" element={<AuthorPage />} />
+              <Route path="/book/:bookId" element={<BookPage />} />
               <Route path="/author-submission" element={<AuthorSubmissionPage />} />
+              <Route path="/submit-book" element={<SubmitBookPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/login" element={<AuthPage />} />
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/migrate-data" element={<MigrationPage />} />
+              <Route path="/contact" element={<ContactPage />} />
             </Routes>
           </main>
           <Footer />

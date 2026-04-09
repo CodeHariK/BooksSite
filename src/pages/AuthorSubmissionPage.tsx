@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import type { AuthorSubmission } from '../types';
 
 const AuthorSubmissionPage: React.FC = () => {
-  const [formData, setFormData] = useState<Omit<AuthorSubmission, 'manuscriptUrl' | 'status' | 'createdAt'>>({
+  const { user, userProfile, updateUserProfile, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState<Omit<AuthorSubmission, 'manuscriptUrl' | 'status' | 'createdAt' | 'userId'>>({
     authorName: '',
     email: '',
     phone: '',
@@ -14,6 +18,15 @@ const AuthorSubmissionPage: React.FC = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate('/login');
+    }
+    if (userProfile?.authorStatus === 'Ok') {
+      navigate('/profile'); // Already an author
+    }
+  }, [user, userProfile, authLoading, navigate]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -21,16 +34,24 @@ const AuthorSubmissionPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user) return;
+    
     setIsSubmitting(true);
     setError(null);
 
     try {
+      // 1. Record the submission
       await addDoc(collection(db, 'author_submissions'), {
         ...formData,
+        userId: user.uid,
         manuscriptUrl: '',
         status: 'Unread',
         createdAt: serverTimestamp()
       });
+
+      // 2. Update user status to pending
+      await updateUserProfile({ authorStatus: 'pending' });
+
       setIsSuccess(true);
       setFormData({ authorName: '', email: '', phone: '', synopsis: '' });
     } catch (err: any) {
@@ -40,6 +61,8 @@ const AuthorSubmissionPage: React.FC = () => {
       setIsSubmitting(false);
     }
   };
+
+  if (authLoading) return <div className="container" style={{ padding: '100px', textAlign: 'center' }}>Loading...</div>;
 
   return (
     <div className="shopify-section collection-product-listing-sec" style={{ minHeight: '60vh', padding: '60px 0' }}>
@@ -54,14 +77,14 @@ const AuthorSubmissionPage: React.FC = () => {
             <div style={{ textAlign: 'center' }}>
               <div style={{ padding: '20px', backgroundColor: '#dff0d8', color: '#3c763d', borderRadius: '8px', marginBottom: '20px' }}>
                 <h3 style={{ margin: 0 }}>Submission Successful!</h3>
-                <p>Thank you for your interest. Our editorial team will review your synopsis and get back to you soon.</p>
+                <p>Thank you for your interest. Your status is now "Pending Review". Our editorial team will review your synopsis soon.</p>
               </div>
               <button 
-                onClick={() => setIsSuccess(false)}
+                onClick={() => navigate('/profile')}
                 className="explore-cta" 
                 style={{ margin: '0 auto', cursor: 'pointer' }}
               >
-                <span>Submit Another Synopsis</span>
+                <span>Back to Profile</span>
               </button>
             </div>
           ) : (
@@ -79,6 +102,7 @@ const AuthorSubmissionPage: React.FC = () => {
                 />
               </div>
 
+              {/* ... other fields remain same but with formData prefix ... */}
               <div style={{ marginBottom: '20px' }}>
                 <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Email Address</label>
                 <input
@@ -138,3 +162,4 @@ const AuthorSubmissionPage: React.FC = () => {
 };
 
 export default AuthorSubmissionPage;
+
