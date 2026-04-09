@@ -2,7 +2,7 @@
 @import"https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sora:wght@100..800&display=swap";
 
 :root {
-    --pc: #c4ffcd;
+    --pc: #ffc4d9;
     --sc: #1268f1;
     --tc: #121212;
     --fc: #0168aa;
@@ -32,7 +32,7 @@
 
 body,
 html {
-    font-family: Inter;
+    font-family: monospace;
     line-height: 1.5;
     font-size: 18px;
     color: var(--dark);
@@ -41,7 +41,7 @@ html {
 }
 
 * {
-    font-family: Inter;
+    font-family: monospace;
     box-sizing: border-box;
     margin: 0;
     padding: 0
@@ -61,7 +61,7 @@ h5,
 h6 {
     color: var(--dark);
     line-height: 1.2;
-    font-family: Sora, sans-serif;
+    font-family: monospace;
     font-optical-sizing: auto;
     font-style: normal;
     margin: 0
@@ -106,7 +106,7 @@ h6 {
 p {
     color: var(--dark);
     font-weight: var(--font-r);
-    font-family: Inter, sans-serif;
+    font-family: monospace;
     font-optical-sizing: auto;
     font-style: normal;
     margin: 0
@@ -1197,7 +1197,7 @@ a.iwishAdded svg path {
 
 .product-item-title {
     font-size: 1.3333333333rem;
-    font-family: Inter;
+    font-family: monospace;
     font-weight: 600;
     line-height: 2rem;
     margin-bottom: .2777777778rem;
@@ -2255,7 +2255,7 @@ div.iwishCategoryTransfer {
 .genre-collections-container .genre-list-container .genre-list-item {
     font-size: 5rem;
     opacity: .2;
-    font-family: Inter;
+    font-family: monospace;
     font-weight: var(--font-b);
     line-height: 1.2;
     margin-block: 1rem;
@@ -2904,7 +2904,7 @@ div.iwishCategoryTransfer {
     font-size: 2rem;
     color: #121212;
     font-weight: var(--font-b);
-    font-family: Sora;
+    font-family: monospace;
     line-height: 1
 }
 
@@ -3185,7 +3185,7 @@ div.iwishCategoryTransfer {
 
 .pdp-banner-container .pdp-banner-content-container .delivery-options {
     max-width: 420px;
-    font-family: inherit;
+    font-family: monospace;
     margin-block: 2.2222222222rem
 }
 
@@ -3498,7 +3498,7 @@ div.iwishCategoryTransfer {
     font-size: 2rem;
     font-weight: var(--font-m);
     cursor: pointer;
-    font-family: Sora
+    font-family: monospace
 }
 
 .pdp-banner-container .pdp-banner-content-container .pdp-details-accordion-title svg {
@@ -3515,7 +3515,7 @@ div.iwishCategoryTransfer {
     font-size: 1rem;
     color: #000;
     font-weight: var(--font-m);
-    font-family: Inter
+    font-family: monospace
 }
 
 .pdp-banner-container .pdp-banner-content-container .pdp-details-accordion .pdp-table-info .pdp-table-row .pdp-table-column-1 {
@@ -3612,7 +3612,7 @@ div.iwishCategoryTransfer {
 
 .pdp-author-title-container p {
     font-size: 1.3333333333rem;
-    font-family: Sora;
+    font-family: monospace;
     font-weight: var(--font-sb)
 }
 
@@ -3634,7 +3634,7 @@ div.iwishCategoryTransfer {
 
 .pdp-author .pdp-author-info .pdp-author-title {
     font-size: 1.3333333333rem;
-    font-family: Sora;
+    font-family: monospace;
     font-weight: var(--font-sb);
     margin-bottom: .5555555556rem
 }
@@ -3698,7 +3698,7 @@ div.iwishCategoryTransfer {
 
 .offer-section-wrapper .offer-section-container .offer-section-content-title {
     font-size: 1rem;
-    font-family: Inter;
+    font-family: monospace;
     font-weight: 700
 }
 
@@ -4794,7 +4794,7 @@ div.iwishCategoryTransfer {
 
     body,
     html {
-        font-size: 15px
+        font-size: 18px
     }
 }
 
@@ -4802,7 +4802,7 @@ div.iwishCategoryTransfer {
 
     body,
     html {
-        font-size: 14px
+        font-size: 18px
     }
 }
 
@@ -4810,7 +4810,7 @@ div.iwishCategoryTransfer {
 
     body,
     html {
-        font-size: 13px
+        font-size: 18px
     }
 }
 
@@ -4818,7 +4818,7 @@ div.iwishCategoryTransfer {
 
     body,
     html {
-        font-size: 11px
+        font-size: 18px
     }
 }
 
@@ -4826,7 +4826,7 @@ div.iwishCategoryTransfer {
 
     body,
     html {
-        font-size: 10px
+        font-size: 18px
     }
 }
 
@@ -4834,7 +4834,7 @@ div.iwishCategoryTransfer {
 
     body,
     html {
-        font-size: 8px
+        font-size: 18px
     }
 }
 
@@ -5567,10 +5567,7 @@ a.explore-cta.eds svg {
         padding-bottom: 0rem
     }
 
-    .genre-collections-container .product-card-listing .products-container .product-item {
-        flex: 0 0 8.0555555556rem;
-        width: 8.0555555556rem
-    }
+
 
     .genre-collections-container .product-card-listing .products-container .product-item:last-child {
         margin-right: 0rem;
@@ -6263,7 +6260,7 @@ a.explore-cta.eds svg {
 }
 
 .article-container .toc-title {
-    font-family: Inter;
+    font-family: monospace;
     font-weight: 700;
     font-size: 1rem;
     line-height: 1.8333333333rem
@@ -6525,7 +6522,7 @@ p.blog-article_tag {
     list-style: none;
     padding: 0;
     margin: 20px 0 0;
-    font-family: Inter;
+    font-family: monospace;
     font-weight: 500;
     font-style: Medium;
     font-size: 1.3333333333rem;
@@ -6600,7 +6597,7 @@ p.blog-article_tag {
 
 .related-info h4 {
     margin-bottom: 3px;
-    font-family: Inter;
+    font-family: monospace;
     font-weight: 600;
     font-size: 1.3333333333rem;
     line-height: 2rem
@@ -6622,7 +6619,7 @@ section.main-page.policy-page a[href^="tel:"] {
 }
 
 section.main-page.policy-page h1 {
-    font-family: Sora;
+    font-family: monospace;
     font-size: 48px;
     font-weight: 600
 }
@@ -6663,14 +6660,14 @@ section.main-page.policy-page {
     font-size: 1rem;
     line-height: 1.5;
     margin-block: 12px 12px;
-    font-family: Inter
+    font-family: monospace
 }
 
 .main-page.policy-page .page-content p span {
     font-size: 1rem !important;
     line-height: 1.5 !important;
     margin-block: 12px 12px;
-    font-family: Inter !important;
+    font-family: monospace !important;
     text-decoration: none !important
 }
 
@@ -6684,7 +6681,7 @@ section.main-page.policy-page {
     line-height: 1.5;
     margin-block: .7777777778rem .7777777778rem;
     font-weight: 600;
-    font-family: Inter
+    font-family: monospace
 }
 
 .main-page.policy-page .page-content h2 {
@@ -6697,7 +6694,7 @@ section.main-page.policy-page {
 
 @media(max-width:767px) {
     section.main-page.policy-page h1 {
-        font-family: Sora;
+        font-family: monospace;
         font-size: 1.3333333333rem;
         font-weight: 600
     }
@@ -6719,14 +6716,14 @@ section.main-page.policy-page {
         font-size: .7777777778rem;
         line-height: 1.5;
         margin-block: 12px 12px;
-        font-family: Inter
+        font-family: monospace
     }
 
     .main-page.policy-page .page-content p span {
         font-size: .7777777778rem !important;
         line-height: 1.5 !important;
         margin-block: 12px 12px;
-        font-family: Inter !important
+        font-family: monospace !important
     }
 
     .main-page.policy-page .page-content p strong {
@@ -6734,7 +6731,7 @@ section.main-page.policy-page {
         line-height: 1.5;
         margin-block: .7777777778rem .7777777778rem;
         font-weight: 600;
-        font-family: Inter
+        font-family: monospace
     }
 
     .main-page.policy-page .page-content h2 {
@@ -6754,7 +6751,7 @@ section.main-page.policy-page {
     }
 
     .article-container .sidebar-left .toc-title {
-        font-family: Inter;
+        font-family: monospace;
         font-weight: 700;
         font-size: .8888888889rem;
         line-height: .8888888889rem
@@ -7375,7 +7372,7 @@ body.template-search-- .wizzy-search-results-list {
     border-radius: .5555555556rem;
     border: none;
     background: #f9f9f9;
-    font-family: Inter;
+    font-family: monospace;
     font-weight: 500;
     font-size: 1rem;
     -webkit-appearance: none;
@@ -7552,14 +7549,14 @@ body.template-search-- .wizzy-search-results-list {
 }
 
 .custom-banner-prd .disc-title h2.rd-hd {
-    font-family: Sora;
+    font-family: monospace;
     font-size: 2.6666666667rem;
     line-height: 3.5555555556rem;
     font-weight: 600
 }
 
 .custom-banner-prd .disc-title .pk-gener {
-    font-family: Inter;
+    font-family: monospace;
     font-weight: 500;
     font-size: 1rem;
     line-height: 150%;
@@ -8072,9 +8069,7 @@ body.template-search-- .wizzy-search-results-list {
 }
 
 @media(max-width:767px) {
-    .product-item-container .product-item-img-container img {
-        max-height: 7.7777777778rem
-    }
+
 
     .collection_main {
         padding-top: 1.1111111111rem
@@ -8169,7 +8164,7 @@ body.template-search-- .wizzy-search-results-list {
 
     .mobile-modal .modal-header .clear-filters {
         color: gray;
-        font-family: Inter;
+        font-family: monospace;
         font-weight: 700;
         font-size: .5555555556rem;
         line-height: 120%
@@ -8280,7 +8275,7 @@ body.template-search-- .wizzy-search-results-list {
         width: 100%;
         -webkit-user-select: none;
         user-select: none;
-        font-family: Inter;
+        font-family: monospace;
         font-weight: 500;
         font-size: 14px;
         line-height: 21px
@@ -8351,7 +8346,7 @@ body.template-search-- .wizzy-search-results-list {
 
     .collection-tags button {
         flex-shrink: 0;
-        font-family: Inter;
+        font-family: monospace;
         font-weight: 500;
         font-size: .6666666667rem;
         line-height: 130%
@@ -8359,7 +8354,7 @@ body.template-search-- .wizzy-search-results-list {
 
     .collection-title {
         margin-bottom: 1.1111111111rem;
-        font-family: Sora;
+        font-family: monospace;
         font-weight: 600;
         font-size: 1.3333333333rem;
         line-height: 130%
@@ -8577,7 +8572,7 @@ body.template-search-- .wizzy-search-results-list {
     }
 
     .modal-header h3 {
-        font-family: Inter;
+        font-family: monospace;
         font-weight: 700;
         font-size: 14px;
         line-height: 24px
@@ -8954,7 +8949,7 @@ body.template-search-- .wizzy-search-results-list {
     color: #000;
     text-align: center;
     font-weight: 600;
-    font-family: Inter
+    font-family: monospace
 }
 
 #cart_drawer .header #cart_drawer::-webkit-scrollbar {
@@ -9046,7 +9041,7 @@ body.template-search-- .wizzy-search-results-list {
 }
 
 #cart_drawer .highlight-product .highlight-slider .item .p-item .content .product-title {
-    font-family: Montserrat;
+    font-family: monospace;
     font-weight: 600;
     font-size: 1.2222222222rem;
     line-height: 2rem;
@@ -9070,7 +9065,7 @@ body.template-search-- .wizzy-search-results-list {
 }
 
 #cart_drawer .highlight-product .highlight-slider .item .p-item .content .price .offer-price {
-    font-family: Montserrat;
+    font-family: monospace;
     font-weight: 600;
     font-size: 1.1111111111rem;
     line-height: 150%;
@@ -9079,7 +9074,7 @@ body.template-search-- .wizzy-search-results-list {
 }
 
 #cart_drawer .highlight-product .highlight-slider .item .p-item .content .price .mrp {
-    font-family: Montserrat;
+    font-family: monospace;
     font-weight: 500;
     font-style: Medium;
     font-size: .8888888889rem;
@@ -9280,7 +9275,7 @@ span.custom_cart_count {
 }
 
 #cart_drawer .pro-content .cartproname a {
-    font-family: Montserrat;
+    font-family: monospace;
     font-weight: 600;
     font-size: 1.2222222222rem;
     line-height: 1.6666666667rem;
@@ -9289,7 +9284,7 @@ span.custom_cart_count {
 }
 
 #cart_drawer .pro-content .price-section .product_price {
-    font-family: Montserrat;
+    font-family: monospace;
     font-weight: 600;
     font-size: 1.1111111111rem;
     line-height: 150%;
@@ -9299,7 +9294,7 @@ span.custom_cart_count {
 }
 
 #cart_drawer .pro-content .price-section .cutoff_price {
-    font-family: Montserrat;
+    font-family: monospace;
     font-weight: 500;
     font-size: .8888888889rem;
     line-height: 100%;
@@ -9341,7 +9336,7 @@ span.custom_cart_count {
 }
 
 #cart_drawer .pro-content .pro-quantity input {
-    font-family: Montserrat;
+    font-family: monospace;
     font-weight: 500;
     font-size: 1.1111111111rem;
     line-height: 1;
@@ -9431,7 +9426,7 @@ span.custom_cart_count {
 #cart_drawer .removeproduct {
     color: #181818;
     cursor: pointer;
-    font-family: Montserrat;
+    font-family: monospace;
     font-weight: 500;
     font-style: Medium;
     font-size: .8888888889rem;
@@ -9586,7 +9581,7 @@ span.custom_cart_count {
 }
 
 .minitotal .totalname p {
-    font-family: Gelasio;
+    font-family: monospace;
     font-weight: 400;
     font-style: Regular;
     font-size: 1.6666666667rem;
@@ -9596,7 +9591,7 @@ span.custom_cart_count {
 }
 
 .minitotal .totalname div {
-    font-family: Montserrat;
+    font-family: monospace;
     font-weight: 600;
     font-style: SemiBold;
     font-size: 1.4444444444rem;
@@ -9632,7 +9627,7 @@ span.custom_cart_count {
 }
 
 .extra-text {
-    font-family: Montserrat;
+    font-family: monospace;
     font-weight: 400;
     font-size: 1.1111111111rem !important;
     line-height: 2rem;
@@ -9650,7 +9645,7 @@ span.custom_cart_count {
     width: 100%;
     border: 0;
     background-color: var(--pc);
-    font-family: Montserrat;
+    font-family: monospace;
     font-weight: 700;
     font-style: Bold;
     font-size: 1.1111111111rem;
@@ -11328,7 +11323,7 @@ h2.cart-heading-som {
     font-size: 1.3333333333rem;
     font-weight: 600;
     margin: 0 0 .5555555556rem;
-    font-family: Inter
+    font-family: monospace
 }
 
 .sochu-reviews .reviews-grid .review-text {
@@ -11624,7 +11619,7 @@ h2.cart-heading-som {
     font-size: 1.3333333333rem;
     line-height: 2rem;
     margin-bottom: .5555555556rem;
-    font-family: Inter
+    font-family: monospace
 }
 
 .literary-quiz .quiz-card p {
@@ -11754,7 +11749,7 @@ h2.cart-heading-som {
     font-size: 1.3333333333rem;
     line-height: 2rem;
     margin-bottom: 1.6666666667rem;
-    font-family: Inter
+    font-family: monospace
 }
 
 .literary-quiz .quiz-modal .form-group {
@@ -11825,7 +11820,7 @@ h2.cart-heading-som {
     font-size: 2rem;
     line-height: 2.6666666667rem;
     text-align: center;
-    font-family: Inter
+    font-family: monospace
 }
 
 .literary-quiz .quiz-result .quiz-card .quiz-pill {
@@ -12961,7 +12956,7 @@ h2.cart-heading-som {
     font-weight: 700;
     font-size: 1rem;
     margin-bottom: 1rem;
-    font-family: Inter
+    font-family: monospace
 }
 
 .mega-menu-wrapper .mega-menu .mega-menu-content .mega-menu-columns .mega-col ul {
@@ -13352,7 +13347,7 @@ h2.cart-heading-som {
 .search-results-container h4 {
     font-size: 1rem;
     font-weight: 700;
-    font-family: Inter
+    font-family: monospace
 }
 
 .search-results-container .search-inner {
@@ -13391,7 +13386,7 @@ h2.cart-heading-som {
 .search-results-container .block-header h4 {
     font-size: 1rem;
     font-weight: 700;
-    font-family: Inter
+    font-family: monospace
 }
 
 @media(max-width:600px) {
@@ -13753,7 +13748,7 @@ footer {
 
 .main-footer-container .footer-menu-container .footer-menu-category .footer-category-list-item {
     margin-bottom: .2777777778rem;
-    font-family: Inter;
+    font-family: monospace;
     font-weight: 500;
     font-size: 1rem;
     line-height: 150%
@@ -13794,7 +13789,7 @@ footer {
 
 .mysearch-container .mysearch-title {
     margin-bottom: 1.6666666667rem;
-    font-family: Inter;
+    font-family: monospace;
     font-weight: 600;
     font-size: 1.3333333333rem;
     line-height: 2rem
@@ -13810,7 +13805,7 @@ footer {
     border: 1px solid #000;
     text-align: center;
     box-sizing: border-box;
-    font-family: Inter;
+    font-family: monospace;
     font-weight: 500;
     border-radius: .3333333333rem;
     padding: .4444444444rem .5555555556rem;
@@ -13928,7 +13923,7 @@ body.template-page.contact-page {
     padding-top: 5.5555555556rem;
     padding-bottom: 5.5555555556rem;
     margin: 0 auto;
-    font-family: Inter;
+    font-family: monospace;
     text-align: center;
     color: #000
 }
@@ -14048,7 +14043,7 @@ body.template-page.contact-page {
     }
 
     .faq-section .faq-item .faq-answer {
-        font-family: Inter;
+        font-family: monospace;
         font-weight: 400;
         font-size: .7777777778rem;
         line-height: 1.3333333333rem;
@@ -14302,7 +14297,7 @@ body.template-page.contact-page {
     line-height: 2rem;
     color: #000;
     margin-block: 0;
-    font-family: Inter
+    font-family: monospace
 }
 
 .faq .question-list-wrapper .question-box .answer {
@@ -14327,7 +14322,7 @@ body.template-page.contact-page {
 
 .faq .question-list-wrapper .question-box .answer ol li,
 .faq .question-list-wrapper .question-box .answer ul li {
-    font-family: Montserrat;
+    font-family: monospace;
     font-weight: 400;
     font-size: 1.1111111111rem;
     margin-bottom: .5555555556rem;
@@ -14440,7 +14435,7 @@ body.template-page.contact-page {
 }
 
 #slidecarthq .rewards .rewards-tiers-labels * {
-    font-family: Inter;
+    font-family: monospace;
     font-weight: 500 !important;
     font-size: .8888888889rem !important;
     line-height: 150% !important
@@ -14724,7 +14719,7 @@ body.template-page.contact-page {
 .footer .button.full {
     background: var(--pc) !important;
     border: 1px solid var(--pc);
-    font-family: Inter;
+    font-family: monospace;
     font-weight: 700;
     font-size: .8333333333rem !important;
     color: #000 !important;
@@ -14933,7 +14928,7 @@ body.template-page.contact-page {
 .jdgm-preview-badge,
 .jdgm-rev-widg,
 [class*=jdgm] {
-    font-family: Inter, sans-serif !important
+    font-family: monospace !important
 }
 
 .jdgm-rev-widg__title,

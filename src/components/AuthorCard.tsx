@@ -22,7 +22,7 @@ export const AuthorCard: React.FC<UserProfile> = ({ displayName, imageUrl, uid }
         
         <div className="product-item-content-container" style={{ textAlign: 'center' }}>
           <div className="product-item-content">
-            <p className="product-item-title" style={{ fontSize: '1.2rem', marginBottom: '5px' }}>{displayName}</p>
+            <p className="product-item-title">{displayName}</p>
             <div className="author-min-space">
               <p className="product-item-author">
                 View Published Books

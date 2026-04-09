@@ -26,7 +26,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="menu-list-container d-767-none">
+            <nav className="menu-list-container">
               <ul className="menu-list">
                 <li className="menu-list-item"><Link to="/authors">Authors</Link></li>
                 <li className="menu-list-item"><Link to="/contact">Contact Us</Link></li>
@@ -47,7 +47,7 @@ const Header: React.FC = () => {
                         width="32" height="32" 
                         style={{ borderRadius: '50%', objectFit: 'cover' }}
                       />
-                      <span className="d-767-none" style={{ fontSize: '14px', fontWeight: '500', textTransform: 'capitalize' }}>
+                      <span style={{ fontSize: '14px', fontWeight: '500', textTransform: 'capitalize' }}>
                         {user.displayName || user.email?.split('@')[0]}
                       </span>
                     </div>
@@ -59,7 +59,7 @@ const Header: React.FC = () => {
                 ) : (
                   <Link to="/login" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'inherit' }}>
                     <img src="/temp_assets/account.svg" alt="Login" width="30" height="30" />
-                    <span className="d-767-none" style={{ fontSize: '12px' }}>Login</span>
+                    <span style={{ fontSize: '12px' }}>Login</span>
                   </Link>
                 )}
               </div>

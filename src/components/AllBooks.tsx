@@ -85,11 +85,7 @@ const AllBooks: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="products-grid" style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                    gap: '30px'
-                }}>
+                <div className="book-grid-system">
                     {books.map((book, idx) => (
                         <ProductCard key={`${book.title}-${idx}`} {...book} />
                     ))}
@@ -109,7 +105,7 @@ const AllBooks: React.FC = () => {
                 )}
 
                 {!loading && hasMore && !searchTerm && (
-                    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+                    <div style={{ textAlign: 'center', marginTop: '50px', marginBottom: '100px' }}>
                         <button
                             onClick={() => fetchBooks(false)}
                             className="explore-cta"

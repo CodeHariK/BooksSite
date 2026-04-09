@@ -68,12 +68,7 @@ const AuthorsPage: React.FC = () => {
               </div>
             ) : (
               <>
-                <div className="products-grid" style={{ 
-                  display: 'grid', 
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
-                  gap: '40px',
-                  justifyContent: 'center'
-                }}>
+                <div className="book-grid-system">
                   {authors.map((author) => (
                     <AuthorCard key={author.uid} {...author} />
                   ))}

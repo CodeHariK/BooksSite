@@ -1,0 +1,109 @@
+/* Grid System for BooksSite */
+
+.book-grid-system {
+    display: grid !important;
+    gap: 30px !important;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0 auto !important;
+    width: 100% !important;
+}
+
+/* Neutralize legacy index.css overrides */
+.book-grid-system .product-item {
+    width: 100% !important;
+    flex: unset !important;
+    margin: 0 !important;
+}
+
+.book-grid-system .product-item-container .product-item-img-container {
+    max-height: 17.2222222222rem !important;
+}
+
+.book-grid-system .product-item-container .product-item-img-container img {
+    max-height: 17.2222222222rem !important;
+    object-fit: contain !important;
+    height: 100% !important;
+}
+
+/* Maintain normal font sizes on mobile */
+.book-grid-system .product-item-title {
+    font-size: 0.8888888889rem !important;
+}
+
+.book-grid-system .product-item-author,
+.book-grid-system .product-item-original-price,
+.book-grid-system .product-item-compare-price {
+    font-size: 0.7777777778rem !important;
+}
+
+@media (max-width: 500px) {
+    .book-grid-system {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+}
+
+@media (min-width: 501px) and (max-width: 720px) {
+    .book-grid-system {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+}
+
+@media (min-width: 1301px) {
+    .book-grid-system {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+@media (min-width: 1701px) {
+    .book-grid-system {
+        grid-template-columns: repeat(5, 1fr) !important;
+    }
+}
+
+/* Recommended Products Grid */
+.recommended-products-grid {
+    display: grid !important;
+    gap: 20px !important;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+@media (max-width: 767px) {
+    .recommended-products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Image Box Grid */
+.image-box-grid-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+/* Collection Card Grid */
+.collection-card-grid-items {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px;
+}
+
+@media (max-width: 767px) {
+    .collection-card-grid-items .collection-card-grid-item:last-child:nth-child(odd) {
+        grid-column: 1 / -1 !important;
+    }
+}
+
+/* Gallery Grid */
+.gallery-grid-items {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 15px;
+}
+
+@media(max-width:767px) {
+    .gallery-grid-items {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}

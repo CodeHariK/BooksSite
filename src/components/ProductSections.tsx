@@ -16,7 +16,7 @@ export interface ProductProps {
   buttonText?: string;
 }
 
-export const ProductCard: React.FC<ProductProps> = ({ id, title, author, authorId, price, originalPrice, image, discount, buttonText = "Add to Bag" }) => {
+export const ProductCard: React.FC<ProductProps> = ({ id, title, author, authorId, price, originalPrice, image, discount }) => {
   return (
     <div className="product-item">
       <div className="product-item-container">
@@ -65,16 +65,7 @@ export const ProductCard: React.FC<ProductProps> = ({ id, title, author, authorI
               </div>
             </div>
           </div>
-          <div className="cart-icon addToCart">
-            <img
-              src="/temp_assets/shopping-bag(1).svg"
-              height="58"
-              width="58"
-              alt="Add to Bag Icon"
-              loading="lazy"
-            />
-            {buttonText}
-          </div>
+
         </div>
       </div>
     </div>
@@ -125,11 +116,8 @@ export const BestSellers: React.FC = () => {
                 </a>
               </div>
             </div>
-            <div className="products-grid">
-              <img className="collection-creative-img" loading="lazy" src="/temp_assets/illustrations.svg" width="936" height="837" alt="Collection Creative Image" />
-              <div className="collection-products-slider" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+            <div className="book-grid-system">
                 {products.map((p) => <ProductCard key={p.title} {...p} />)}
-              </div>
             </div>
           </div>
         </div>
@@ -182,11 +170,8 @@ export const ComingSoon: React.FC = () => {
                 </a>
               </div>
             </div>
-            <div className="products-grid">
-              <img className="collection-creative-img" loading="lazy" src="/temp_assets/Layer_1_1.svg" width="936" height="837" alt="Collection Creative Image" />
-              <div className="collection-products-slider" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+            <div className="book-grid-system">
                 {products.map((p) => <ProductCard key={p.title} {...p} />)}
-              </div>
             </div>
           </div>
         </div>

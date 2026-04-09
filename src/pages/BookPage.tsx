@@ -32,10 +32,10 @@ const BookPage: React.FC = () => {
 
         if (docSnap.exists()) {
           const bookData = { id: docSnap.id, ...docSnap.data() } as Book;
-          
+
           // Visibility Check: Only show if published, or if user is author/admin
-          if (!bookData.isPublished && 
-              (!user || (user.uid !== bookData.authorId && !userProfile?.isAdmin))) {
+          if (!bookData.isPublished &&
+            (!user || (user.uid !== bookData.authorId && !userProfile?.isAdmin))) {
             setError("This book is currently under review and is not yet public.");
             setLoading(false);
             return;
@@ -115,7 +115,7 @@ const BookPage: React.FC = () => {
           `
         }
       });
-      
+
       setLeadMessage({ type: 'success', text: 'Request sent! We will contact you soon.' });
       setTimeout(() => {
         setIsModalOpen(false);
@@ -195,10 +195,7 @@ const BookPage: React.FC = () => {
 
             <div className="cta-container">
               <div className="cta-btn-container">
-                <button className="primary-btn addToCart" onClick={() => setIsModalOpen(true)}>
-                  Add to Bag
-                  <img width="18" height="18" src="https://cdn.shopify.com/s/files/1/0975/6010/1045/files/shopping-bag.svg?v=1760623297" alt="add to cart" />
-                </button>
+
                 <button className="transparent-btn up-buyNow-btn addToCart" onClick={() => setIsModalOpen(true)}>
                   Buy Now
                   <img width="16" height="16" src="https://cdn.shopify.com/s/files/1/0648/3066/9017/files/arrow-up-right_1.svg?v=1762170869" alt="buy now" />
@@ -206,12 +203,6 @@ const BookPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="delivery-options">
-              <h3 className="delivery-options__title">Delivery Options</h3>
-              <div className="delivery-options__pincode">
-                <input type="text" placeholder="Enter Your Pincode" id="pincodeInput" />
-              </div>
-            </div>
 
             <div className="pdp-table-info">
               {book.pages && (
@@ -222,16 +213,6 @@ const BookPage: React.FC = () => {
               )}
             </div>
 
-            <div className="pdp-features">
-              <div className="pdp-feature">
-                <img width="50" height="50" src="//www.aghorin.com/cdn/shop/files/Piracy_Free_6e5bce63-8a09-468b-a5f1-ba48366f3329.svg?v=1766726795" alt="Piracy Free" />
-                <p>Piracy Free</p>
-              </div>
-              <div className="pdp-feature">
-                <img width="50" height="50" src="//www.aghorin.com/cdn/shop/files/Secure_Transactions_2f568076-104f-4cf1-9fb0-471805e41256.svg?v=1766726741" alt="Secure Transactions" />
-                <p>Secure Transactions</p>
-              </div>
-            </div>
 
             <div className="book-summary">
               <p className="book-summary-title">
@@ -308,51 +289,51 @@ const BookPage: React.FC = () => {
             position: 'relative',
             boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
           }}>
-            <button 
+            <button
               onClick={() => setIsModalOpen(false)}
               style={{ position: 'absolute', top: '20px', right: '20px', border: 'none', background: 'none', cursor: 'pointer', fontSize: '24px' }}>
               &times;
             </button>
             <h3 style={{ marginBottom: '10px' }}>Request to Buy</h3>
             <p style={{ fontSize: '14px', color: '#666', marginBottom: '20px' }}>Enter your details and we will contact you for payment and delivery.</p>
-            
+
             <form onSubmit={handleLeadSubmit}>
               <div style={{ marginBottom: '15px' }}>
                 <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px', fontWeight: 'bold' }}>Your Name</label>
-                <input 
-                  type="text" 
-                  required 
+                <input
+                  type="text"
+                  required
                   value={leadFormData.name}
-                  onChange={(e) => setLeadFormData({...leadFormData, name: e.target.value})}
+                  onChange={(e) => setLeadFormData({ ...leadFormData, name: e.target.value })}
                   style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
                 />
               </div>
               <div style={{ marginBottom: '15px' }}>
                 <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px', fontWeight: 'bold' }}>Mobile Number</label>
-                <input 
-                  type="tel" 
-                  required 
+                <input
+                  type="tel"
+                  required
                   value={leadFormData.phone}
-                  onChange={(e) => setLeadFormData({...leadFormData, phone: e.target.value})}
+                  onChange={(e) => setLeadFormData({ ...leadFormData, phone: e.target.value })}
                   style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
                 />
               </div>
               <div style={{ marginBottom: '20px' }}>
                 <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px', fontWeight: 'bold' }}>City</label>
-                <input 
-                  type="text" 
-                  required 
+                <input
+                  type="text"
+                  required
                   value={leadFormData.city}
-                  onChange={(e) => setLeadFormData({...leadFormData, city: e.target.value})}
+                  onChange={(e) => setLeadFormData({ ...leadFormData, city: e.target.value })}
                   style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
                 />
               </div>
-              
+
               {leadMessage && (
-                <p style={{ 
-                  padding: '10px', 
-                  borderRadius: '6px', 
-                  marginBottom: '15px', 
+                <p style={{
+                  padding: '10px',
+                  borderRadius: '6px',
+                  marginBottom: '15px',
                   fontSize: '13px',
                   backgroundColor: leadMessage.type === 'success' ? '#e6fffa' : '#fff5f5',
                   color: leadMessage.type === 'success' ? '#2c7a7b' : '#c53030'
@@ -361,10 +342,10 @@ const BookPage: React.FC = () => {
                 </p>
               )}
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={isLeadSubmitting}
-                className="explore-cta" 
+                className="explore-cta"
                 style={{ width: '100%', justifyContent: 'center', backgroundColor: '#ffa100' }}
               >
                 <span>{isLeadSubmitting ? 'Sending...' : 'Confirm Request'}</span>

@@ -62,7 +62,7 @@ const AuthorPage: React.FC = () => {
             </div>
 
             {authorBooks.length > 0 ? (
-              <div className="products-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+              <div className="book-grid-system">
                 {authorBooks.map((book) => (
                   <ProductCard key={book.title} {...book} />
                 ))}
