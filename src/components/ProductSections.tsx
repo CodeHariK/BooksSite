@@ -65,7 +65,16 @@ export const ProductCard: React.FC<ProductProps> = ({ id, title, author, authorI
               </div>
             </div>
           </div>
-
+          <div className="product-item-cta-container" style={{ marginTop: '15px' }}>
+            <Link 
+              to={`/buy?bookId=${id}`} 
+              className="explore-cta" 
+              style={{ width: '100%', justifyContent: 'center', padding: '10px 15px', fontSize: '14px' }}
+            >
+              <span>Buy</span>
+              <img width="14" height="14" src="/temp_assets/arrow-up-right.svg" alt="buy" />
+            </Link>
+          </div>
         </div>
       </div>
     </div>

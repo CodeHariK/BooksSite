@@ -28,8 +28,12 @@ const Header: React.FC = () => {
             {/* Desktop Navigation */}
             <nav className="menu-list-container">
               <ul className="menu-list">
+                <li className="menu-list-item"><Link to="/">Home</Link></li>
+                <li className="menu-list-item"><Link to="/about">About</Link></li>
+                <li className="menu-list-item"><Link to="/catalogue">Book Catalogue</Link></li>
                 <li className="menu-list-item"><Link to="/authors">Authors</Link></li>
-                <li className="menu-list-item"><Link to="/contact">Contact Us</Link></li>
+                <li className="menu-list-item"><Link to="/publish">Publish with Us</Link></li>
+                <li className="menu-list-item"><Link to="/contact">Contact</Link></li>
               </ul>
             </nav>
 
