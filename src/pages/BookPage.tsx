@@ -95,7 +95,7 @@ const BookPage: React.FC = () => {
     try {
       const mailRef = collection(db, 'mail');
       await addDoc(mailRef, {
-        to: 'dev.shark.run@gmail.com',
+        to: 'sajjayak@gmail.com',
         message: {
           subject: `NEW BOOK ORDER REQUEST: ${book.title}`,
           html: `

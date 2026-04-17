@@ -41,7 +41,7 @@ const PublishPage: React.FC = () => {
 
       // 2. Send email via 'mail' collection
       await addDoc(collection(db, 'mail'), {
-        to: 'dev.shark.run@gmail.com', // Placeholder
+        to: 'sajjayak@gmail.com', // Placeholder
         message: {
           subject: `New Manuscript Submission: ${formData.authorName}`,
           html: `
@@ -99,7 +99,7 @@ const PublishPage: React.FC = () => {
 
             <div style={{ marginBottom: '30px' }}>
               <h4 style={{ color: '#ffaecaff', marginBottom: '10px' }}>Step 2 — Submit Your Manuscript</h4>
-              <p style={{ fontSize: '0.95rem' }}>Fill out the form or email your submission in Word or PDF format to: <strong>dev.shark.run@gmail.com</strong></p>
+              <p style={{ fontSize: '0.95rem' }}>Fill out the form or email your submission in Word or PDF format to: <strong>sajjayak@gmail.com</strong></p>
             </div>
 
             <div style={{ marginBottom: '30px' }}>

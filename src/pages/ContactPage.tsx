@@ -24,7 +24,7 @@ const ContactPage: React.FC = () => {
     try {
       const mailRef = collection(db, 'mail');
       await addDoc(mailRef, {
-        to: 'dev.shark.run@gmail.com',
+        to: 'sajjayak@gmail.com',
         message: {
           subject: `New Contact Message: ${formData.subject}`,
           html: `
@@ -39,7 +39,7 @@ const ContactPage: React.FC = () => {
           `
         }
       });
-      
+
       setMessage({ type: 'success', text: 'Thank you! Your message has been sent successfully.' });
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
@@ -113,10 +113,10 @@ const ContactPage: React.FC = () => {
             </div>
 
             {message && (
-              <div style={{ 
-                padding: '12px', 
-                borderRadius: '8px', 
-                marginBottom: '20px', 
+              <div style={{
+                padding: '12px',
+                borderRadius: '8px',
+                marginBottom: '20px',
                 backgroundColor: message.type === 'success' ? '#e6fffa' : '#fff5f5',
                 color: message.type === 'success' ? '#2c7a7b' : '#c53030',
                 border: `1px solid ${message.type === 'success' ? '#81e6d9' : '#feb2b2'}`

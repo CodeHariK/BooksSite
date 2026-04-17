@@ -29,7 +29,7 @@ const BuyBookPage: React.FC = () => {
         try {
             // Send email via Firestore 'mail' collection
             await addDoc(collection(db, 'mail'), {
-                to: 'dev.shark.run@gmail.com',
+                to: 'sajjayak@gmail.com',
                 message: {
                     subject: `New Book Purchase Request: ${formData.bookName}`,
                     html: `
@@ -67,7 +67,7 @@ const BuyBookPage: React.FC = () => {
                 </div>
 
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '50px' }}>
-                    
+
                     {/* Information Column */}
                     <div className="buy-info" style={{ lineHeight: '1.6' }}>
                         <p style={{ marginBottom: '30px', fontWeight: '500', fontSize: '1.1rem' }}>We operate as a boutique initiative. Instead of a standard checkout, we provide personalized service for every order.</p>
@@ -103,9 +103,9 @@ const BuyBookPage: React.FC = () => {
                                     <h3 style={{ margin: 0 }}>Request Received!</h3>
                                     <p style={{ marginTop: '10px' }}>Our executive will contact you with payment, shipping and other details.</p>
                                 </div>
-                                <button 
+                                <button
                                     onClick={() => navigate('/catalogue')}
-                                    className="explore-cta" 
+                                    className="explore-cta"
                                     style={{ margin: '0 auto', cursor: 'pointer' }}
                                 >
                                     <span>Browse More Books</span>
