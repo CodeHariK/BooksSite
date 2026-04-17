@@ -98,6 +98,21 @@ const AdminPage: React.FC = () => {
     }
   };
 
+  const toggleBookTag = async (bookId: string, tag: 'isBestSeller' | 'isComingSoon', currentStatus: boolean) => {
+    setActionLoading(`${bookId}-${tag}`);
+    try {
+      await updateDoc(doc(db, 'books', bookId), {
+        [tag]: !currentStatus,
+        updatedAt: new Date().toISOString()
+      });
+      setBooks(prev => prev.map(b => b.id === bookId ? { ...b, [tag]: !currentStatus } : b));
+    } catch (error) {
+      alert(`Error updating ${tag}`);
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
   const publishBook = async (book: Book) => {
     if (!book.id) return;
     setActionLoading(book.id);
@@ -280,6 +295,7 @@ const AdminPage: React.FC = () => {
                   <th style={{ padding: '20px' }}>Book</th>
                   <th style={{ padding: '20px' }}>Author</th>
                   <th style={{ padding: '20px' }}>Status</th>
+                  <th style={{ padding: '20px' }}>Tags</th>
                   <th style={{ padding: '20px' }}>Actions</th>
                 </tr>
               </thead>
@@ -308,6 +324,28 @@ const AdminPage: React.FC = () => {
                       }}>
                         {b.isPublished ? 'Published' : 'Pending Review'}
                       </span>
+                    </td>
+                    <td style={{ padding: '20px' }}>
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', cursor: 'pointer' }}>
+                          <input 
+                            type="checkbox" 
+                            checked={!!b.isBestSeller} 
+                            onChange={() => toggleBookTag(b.id!, 'isBestSeller', !!b.isBestSeller)}
+                            disabled={actionLoading === `${b.id}-isBestSeller`}
+                          />
+                          Best Seller
+                        </label>
+                        <label style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', cursor: 'pointer' }}>
+                          <input 
+                            type="checkbox" 
+                            checked={!!b.isComingSoon} 
+                            onChange={() => toggleBookTag(b.id!, 'isComingSoon', !!b.isComingSoon)}
+                            disabled={actionLoading === `${b.id}-isComingSoon`}
+                          />
+                          Coming Soon
+                        </label>
+                      </div>
                     </td>
                     <td style={{ padding: '20px' }}>
                       <div style={{ display: 'flex', gap: '15px' }}>

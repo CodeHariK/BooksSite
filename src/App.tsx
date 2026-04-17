@@ -8,7 +8,6 @@ import CataloguePage from './pages/CataloguePage';
 import PublishPage from './pages/PublishPage';
 import ContactPage from './pages/ContactPage';
 import BuyBookPage from './pages/BuyBookPage';
-import AuthorsPage from './pages/AuthorsPage';
 import AuthorPage from './pages/AuthorPage';
 import BookPage from './pages/BookPage';
 import AuthPage from './pages/AuthPage';
@@ -34,7 +33,6 @@ const App: React.FC = () => {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/buy" element={<BuyBookPage />} />
               
-              <Route path="/authors" element={<AuthorsPage />} />
               <Route path="/author/:authorId" element={<AuthorPage />} />
               <Route path="/book/:bookId" element={<BookPage />} />
               <Route path="/profile" element={<ProfilePage />} />

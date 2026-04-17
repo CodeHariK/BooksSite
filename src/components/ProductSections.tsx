@@ -14,9 +14,11 @@ export interface ProductProps {
   discount?: string;
   releaseDate?: string;
   buttonText?: string;
+  isBestSeller?: boolean;
+  isComingSoon?: boolean;
 }
 
-export const ProductCard: React.FC<ProductProps> = ({ id, title, author, authorId, price, originalPrice, image, discount }) => {
+export const ProductCard: React.FC<ProductProps> = ({ id, title, author, authorId, price, originalPrice, image, discount, isBestSeller, isComingSoon }) => {
   return (
     <div className="product-item">
       <div className="product-item-container">
@@ -30,6 +32,18 @@ export const ProductCard: React.FC<ProductProps> = ({ id, title, author, authorI
               src={image}
               alt={title}
             />
+            <div style={{ position: 'absolute', top: '10px', left: '10px', display: 'flex', flexDirection: 'column', gap: '5px', zIndex: 1 }}>
+              {isBestSeller && (
+                <div style={{ backgroundColor: '#ffa100', color: '#fff', padding: '4px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: 'bold' }}>
+                  BEST SELLER
+                </div>
+              )}
+              {isComingSoon && (
+                <div style={{ backgroundColor: '#2d2d2d', color: '#fff', padding: '4px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: 'bold' }}>
+                  COMING SOON
+                </div>
+              )}
+            </div>
           </div>
         </Link>
 
@@ -145,7 +159,7 @@ export const ComingSoon: React.FC = () => {
         const q = query(
           collection(db, 'books'), 
           where('isPublished', '==', true),
-          where('releaseDate', '!=', null), 
+          where('isComingSoon', '==', true), 
           limit(4)
         );
         const querySnapshot = await getDocs(q);

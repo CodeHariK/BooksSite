@@ -21,9 +21,9 @@ const Footer: React.FC = () => {
               <p>
                 <a href="mailto:[EMAIL_ADDRESS]">[EMAIL_ADDRESS]</a>
               </p>
-              <p>
+              {/* <p>
                 <a href="tel:+91 85302 06759">+91 85302 06759</a>
-              </p>
+              </p> */}
             </div>
 
             {/* Footer Menus */}
@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
                 </ul>
               </div>
 
-              <div className="footer-menu-category">
+              {/* <div className="footer-menu-category">
                 <p className="footer-menu-category-title">Useful links</p>
                 <ul className="footer-menu-category-list">
                   <li className="footer-category-list-item"><a href="#">Secure Shopping</a></li>
@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
                   <li className="footer-category-list-item"><a href="#">Returns Policy</a></li>
                   <li className="footer-category-list-item"><a href="#">Payment Option</a></li>
                 </ul>
-              </div>
+              </div> */}
 
               <div className="footer-menu-category">
                 <p className="footer-menu-category-title">About us</p>

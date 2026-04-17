@@ -30,6 +30,7 @@ export interface Book {
   createdAt: Timestamp | string;
   isPublished: boolean;
   isBestSeller?: boolean;
+  isComingSoon?: boolean;
   // Fields for PDP (Product Detail Page)
   summary?: string;
   pages?: number;

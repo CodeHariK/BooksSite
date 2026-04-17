@@ -47,7 +47,7 @@ service cloud.firestore {
     // Email Extension Collection
     match /mail/{mailId} {
       allow create: if true; // Allow anyone to send inquiry
-      allow read, update, delete: if false; // Security: Nobody can read/edit emails once sent
+      allow read, update, delete: if false; 
     }
   }
 }

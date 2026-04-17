@@ -1,11 +1,12 @@
 @charset "UTF-8";
-@import"https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sora:wght@100..800&display=swap";
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Outfit:wght@100..900&display=swap");
 
 :root {
-    --pc: #c4ffcd;
-    --sc: #1268f1;
+    --pc: #f5f5ec; /* Elegant Paper/Cream */
+    --sc: #2d2d2d; /* Charcoal */
     --tc: #121212;
     --fc: #0168aa;
+    --accent: #ffaecaff; /* Keeping the user's pink accent for now as a subtle touch */
     --body-color: #ffffff;
     --white: #ffffff;
     --tf: transparent;
@@ -27,12 +28,15 @@
     --font-b: 700;
     --font-eb: 800;
     --font-black: 900;
-    --font-eblack: 950
+    --font-eblack: 950;
+    
+    --serif: 'Crimson Pro', serif;
+    --sans: 'Outfit', sans-serif;
 }
 
 body,
 html {
-    font-family: monospace;
+    font-family: var(--sans);
     line-height: 1.5;
     font-size: 18px;
     color: var(--dark);
@@ -41,7 +45,7 @@ html {
 }
 
 * {
-    font-family: monospace;
+    font-family: var(--sans);
     box-sizing: border-box;
     margin: 0;
     padding: 0
@@ -61,7 +65,7 @@ h5,
 h6 {
     color: var(--dark);
     line-height: 1.2;
-    font-family: monospace;
+    font-family: var(--serif);
     font-optical-sizing: auto;
     font-style: normal;
     margin: 0
@@ -106,7 +110,7 @@ h6 {
 p {
     color: var(--dark);
     font-weight: var(--font-r);
-    font-family: monospace;
+    font-family: var(--sans);
     font-optical-sizing: auto;
     font-style: normal;
     margin: 0
@@ -175,24 +179,35 @@ main {
 }
 
 .explore-cta {
-    padding: 1.1111111111rem;
+    padding: 1rem 2rem;
     line-height: 1;
     display: flex;
     gap: .5555555556rem;
     align-items: center;
-    border: 1px solid grey;
-    border-radius: .5555555556rem;
+    border: 1px solid var(--sc);
+    border-radius: 5rem;
     width: fit-content;
-    font-size: 1rem
+    font-size: 1rem;
+    font-weight: var(--font-m);
+    transition: var(--ani-3);
+    cursor: pointer;
 }
 
 .explore-cta img {
-    width: .8888888889rem
+    width: .8888888889rem;
+    transition: transform 0.3s ease;
 }
 
 .explore-cta:hover {
-    background: var(--pc);
-    border: 1px solid transparent
+    background: var(--sc);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.explore-cta:hover img {
+    transform: translate(2px, -2px);
+    filter: brightness(0) invert(1);
 }
 
 .iwish-row .price_sale span.price-regular {
