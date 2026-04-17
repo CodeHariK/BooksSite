@@ -51,7 +51,7 @@ const Header: React.FC = () => {
                         width="32" height="32"
                         style={{ borderRadius: '50%', objectFit: 'cover' }}
                       />
-                      <span style={{ fontSize: '14px', fontWeight: '500', textTransform: 'capitalize' }}>
+                      <span style={{ textTransform: 'capitalize' }}>
                         {user.displayName || user.email?.split('@')[0]}
                       </span>
                     </div>
@@ -63,7 +63,7 @@ const Header: React.FC = () => {
                 ) : (
                   <Link to="/login" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'inherit' }}>
                     <img src="/temp_assets/account.svg" alt="Login" width="30" height="30" />
-                    <span style={{ fontSize: '12px' }}>Login</span>
+                    <span>Login</span>
                   </Link>
                 )}
               </div>

@@ -37,6 +37,7 @@ export interface Book {
   dimensions?: string;
   releaseDate?: string;
   buttonText?: string;
+  updatedAt?: Timestamp | string;
 }
 
 export interface BookOrder {

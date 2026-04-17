@@ -4,6 +4,7 @@ import { db } from '../firebase';
 import { useAuth } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import type { UserProfile, AuthorStatus, Book } from '../types';
+import EditBookModal from '../components/EditBookModal';
 
 const AdminPage: React.FC = () => {
   const { userProfile, loading: authLoading } = useAuth();
@@ -14,6 +15,7 @@ const AdminPage: React.FC = () => {
   const [booksLoading, setBooksLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [editingBook, setEditingBook] = useState<Book | null>(null);
 
   const fetchUsers = async () => {
     try {
@@ -220,10 +222,10 @@ const AdminPage: React.FC = () => {
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ backgroundColor: '#f9f9f9', borderBottom: '1px solid #eee' }}>
-                  <th style={{ padding: '20px' }}>User</th>
-                  <th style={{ padding: '20px' }}>Role</th>
-                  <th style={{ padding: '20px' }}>Author Status</th>
-                  <th style={{ padding: '20px' }}>Actions</th>
+                  <th style={{ padding: '20px', minWidth: '250px' }}>User</th>
+                  <th style={{ padding: '20px', minWidth: '150px' }}>Role</th>
+                  <th style={{ padding: '20px', minWidth: '180px' }}>Author Status</th>
+                  <th style={{ padding: '20px', minWidth: '150px' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -292,11 +294,11 @@ const AdminPage: React.FC = () => {
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ backgroundColor: '#f9f9f9', borderBottom: '1px solid #eee' }}>
-                  <th style={{ padding: '20px' }}>Book</th>
-                  <th style={{ padding: '20px' }}>Author</th>
-                  <th style={{ padding: '20px' }}>Status</th>
-                  <th style={{ padding: '20px' }}>Tags</th>
-                  <th style={{ padding: '20px' }}>Actions</th>
+                  <th style={{ padding: '20px', minWidth: '300px' }}>Book</th>
+                  <th style={{ padding: '20px', minWidth: '180px' }}>Author</th>
+                  <th style={{ padding: '20px', minWidth: '150px' }}>Status</th>
+                  <th style={{ padding: '20px', minWidth: '220px' }}>Tags</th>
+                  <th style={{ padding: '20px', minWidth: '200px' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -358,24 +360,42 @@ const AdminPage: React.FC = () => {
                             Publish
                           </button>
                         )}
-                        <button 
-                          onClick={() => deleteBook(b.id!)}
-                          disabled={actionLoading === b.id}
-                          style={{ color: '#dc3545', background: 'none', border: 'none', cursor: 'pointer' }}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                          <button 
+                            onClick={() => deleteBook(b.id!)}
+                            disabled={actionLoading === b.id}
+                            style={{ color: '#dc3545', background: 'none', border: 'none', cursor: 'pointer' }}
+                          >
+                            Delete
+                          </button>
+                          <button 
+                            onClick={() => setEditingBook(b)}
+                            disabled={actionLoading === b.id}
+                            style={{ color: '#ffa100', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                          >
+                            Edit
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
+        {editingBook && (
+          <EditBookModal 
+            book={editingBook} 
+            onClose={() => setEditingBook(null)}
+            onSave={(updatedBook) => {
+              setBooks(prev => prev.map(b => b.id === updatedBook.id ? updatedBook : b));
+              setEditingBook(null);
+            }}
+          />
         )}
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 export default AdminPage;

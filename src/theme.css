@@ -49,6 +49,7 @@ html {
 
 * {
     font-family: var(--sans);
+    font-weight: 300;
     box-sizing: border-box;
     margin: 0;
     padding: 0
