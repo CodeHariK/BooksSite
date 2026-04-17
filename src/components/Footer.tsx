@@ -5,8 +5,8 @@ const Footer: React.FC = () => {
     <div id="shopify-section-main-footer" className="shopify-section">
       <footer>
         <div className="container footer-sect">
+          {/* Footer Logo + Contact */}
           <div className="main-footer-container">
-            {/* Footer Logo + Contact */}
             <div className="footer-logo-container">
               <Link to="/">
                 <img
@@ -17,18 +17,18 @@ const Footer: React.FC = () => {
                   height="59"
                 />
               </Link>
-              <p>Aghorin Books draws book lovers of all ages into a community where they can discover great books, engage with booklovers and meet their favourite literary personalities.</p>
-              <p>
+              {/* <p>
                 <a href="mailto:[EMAIL_ADDRESS]">[EMAIL_ADDRESS]</a>
-              </p>
+                </p> */}
               {/* <p>
                 <a href="tel:+91 85302 06759">+91 85302 06759</a>
-              </p> */}
+                </p> */}
             </div>
+            <p className="footer-description">Aghorin Books draws book lovers of all ages into a community where they can discover great books, engage with booklovers and meet their favourite literary personalities.</p>
 
             {/* Footer Menus */}
             <div className="footer-menu-container">
-              <div className="footer-menu-category">
+              {/* <div className="footer-menu-category">
                 <p className="footer-menu-category-title">Category</p>
                 <ul className="footer-menu-category-list">
                   <li className="footer-category-list-item"><a href="#">Books</a></li>
@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
                   <li className="footer-category-list-item"><a href="#">Stationery & Gifts</a></li>
                   <li className="footer-category-list-item"><a href="#">The Write Place</a></li>
                 </ul>
-              </div>
+              </div> */}
 
               {/* <div className="footer-menu-category">
                 <p className="footer-menu-category-title">Useful links</p>
@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
                 </ul>
               </div> */}
 
-              <div className="footer-menu-category">
+              {/* <div className="footer-menu-category">
                 <p className="footer-menu-category-title">About us</p>
                 <ul className="footer-menu-category-list">
                   <li className="footer-category-list-item"><a href="#">About Us</a></li>
@@ -69,15 +69,14 @@ const Footer: React.FC = () => {
                   <li className="footer-category-list-item"><Link to="/contact">Contact Us</Link></li>
                   <li className="footer-category-list-item"><a href="#">Track your order</a></li>
                 </ul>
-              </div>
+              </div> */}
             </div>
+
           </div>
-
-
 
           {/* Bottom Footer */}
           <div className="bottom-footer-container">
-            <p className="bottom-footer-content">© 2026 Aghorin Books, All Rights Reserved.</p>
+            <p className="bottom-footer-content">Aghorin Books, Cochin, Kerala, India</p>
             <div className="bottom-footer-social-links">
               <div className="bottom-footer-social-link">
                 <a href="#" target="_blank" rel="noopener">

@@ -29,11 +29,11 @@ const Header: React.FC = () => {
             <nav className="menu-list-container">
               <ul className="menu-list">
                 <li className="menu-list-item"><Link to="/">Home</Link></li>
-                <li className="menu-list-item"><Link to="/about">About</Link></li>
                 <li className="menu-list-item"><Link to="/catalogue">Book Catalogue</Link></li>
                 <li className="menu-list-item"><Link to="/buy">Buy Books</Link></li>
                 <li className="menu-list-item"><Link to="/publish">Publish with Us</Link></li>
                 <li className="menu-list-item"><Link to="/contact">Contact</Link></li>
+                <li className="menu-list-item"><Link to="/about">About</Link></li>
               </ul>
             </nav>
 
@@ -45,10 +45,10 @@ const Header: React.FC = () => {
                 {user ? (
                   <>
                     <div className="profile-trigger" style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                      <img 
-                        src={userProfile?.imageUrl || "/temp_assets/account.svg"} 
-                        alt="Profile" 
-                        width="32" height="32" 
+                      <img
+                        src={userProfile?.imageUrl || "/temp_assets/account.svg"}
+                        alt="Profile"
+                        width="32" height="32"
                         style={{ borderRadius: '50%', objectFit: 'cover' }}
                       />
                       <span style={{ fontSize: '14px', fontWeight: '500', textTransform: 'capitalize' }}>

@@ -2,11 +2,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Outfit:wght@100..900&display=swap");
 
 :root {
-    --pc: #f5f5ec; /* Elegant Paper/Cream */
-    --sc: #2d2d2d; /* Charcoal */
+    --pc: #f5f5ec;
+    /* Elegant Paper/Cream */
+    --sc: #2d2d2d;
+    /* Charcoal */
     --tc: #121212;
     --fc: #0168aa;
-    --accent: #ffaecaff; /* Keeping the user's pink accent for now as a subtle touch */
+    --accent: #ffaecaff;
+    /* Keeping the user's pink accent for now as a subtle touch */
     --body-color: #ffffff;
     --white: #ffffff;
     --tf: transparent;
@@ -29,7 +32,7 @@
     --font-eb: 800;
     --font-black: 900;
     --font-eblack: 950;
-    
+
     --serif: 'Crimson Pro', serif;
     --sans: 'Outfit', sans-serif;
 }
@@ -202,7 +205,7 @@ main {
     background: var(--sc);
     color: var(--white);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .explore-cta:hover img {
@@ -335,4 +338,3 @@ main {
 .jdgm-subtab {
     margin: 8px !important
 }
-

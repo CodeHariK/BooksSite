@@ -53,7 +53,7 @@
     transition: .25s;
     border-radius: .5555555556rem;
     max-height: unset;
-    aspect-ratio: 3/4;
+    /* aspect-ratio: 3/4; */
     object-fit: cover;
 }
 
@@ -354,4 +354,3 @@
     scroll-behavior: smooth;
     padding-bottom: 10px
 }
-

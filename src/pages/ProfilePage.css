@@ -55,7 +55,7 @@
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  
+
   .profile-sidebar {
     position: relative !important;
     top: 0 !important;
@@ -174,7 +174,7 @@
 }
 
 .book-card-image-wrapper {
-  aspect-ratio: 3/4;
+  /* aspect-ratio: 3/4; */
   overflow: hidden;
   border-radius: 10px;
   margin-bottom: 12px;

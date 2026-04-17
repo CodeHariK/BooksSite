@@ -80,9 +80,9 @@ export const ProductCard: React.FC<ProductProps> = ({ id, title, author, authorI
             </div>
           </div>
           <div className="product-item-cta-container" style={{ marginTop: '15px' }}>
-            <Link 
-              to={`/buy?bookId=${id}`} 
-              className="explore-cta" 
+            <Link
+              to={`/buy?bookId=${id}`}
+              className="explore-cta"
               style={{ width: '100%', justifyContent: 'center', padding: '10px 15px', fontSize: '14px' }}
             >
               <span>Buy</span>
@@ -103,9 +103,9 @@ export const BestSellers: React.FC = () => {
     const fetchBestSellers = async () => {
       try {
         const q = query(
-          collection(db, 'books'), 
+          collection(db, 'books'),
           where('isPublished', '==', true),
-          where('isBestSeller', '==', true), 
+          where('isBestSeller', '==', true),
           limit(4)
         );
         const querySnapshot = await getDocs(q);
@@ -132,15 +132,15 @@ export const BestSellers: React.FC = () => {
                 <h2 className="sec-title">Best Sellers</h2>
                 <p className="sec-desc">Read What Millions Have Loved!</p>
               </div>
-              <div className="collection-arrows-cta">
+              {/* <div className="collection-arrows-cta">
                 <a className="explore-cta d-767-none" href="#">
                   <span>Show All</span>
                   <img width="16" height="16" src="/temp_assets/arrow-up-right.svg" alt="arrow-up-right" />
                 </a>
-              </div>
+              </div> */}
             </div>
             <div className="book-grid-system">
-                {products.map((p) => <ProductCard key={p.title} {...p} />)}
+              {products.map((p) => <ProductCard key={p.title} {...p} />)}
             </div>
           </div>
         </div>
@@ -157,9 +157,9 @@ export const ComingSoon: React.FC = () => {
     const fetchComingSoon = async () => {
       try {
         const q = query(
-          collection(db, 'books'), 
+          collection(db, 'books'),
           where('isPublished', '==', true),
-          where('isComingSoon', '==', true), 
+          where('isComingSoon', '==', true),
           limit(4)
         );
         const querySnapshot = await getDocs(q);
@@ -186,15 +186,15 @@ export const ComingSoon: React.FC = () => {
                 <h2 className="sec-title">Coming Soon</h2>
                 <p className="sec-desc">Countdown to your next obsession.</p>
               </div>
-              <div className="collection-arrows-cta">
+              {/* <div className="collection-arrows-cta">
                 <a className="explore-cta d-767-none" href="#">
                   <span>Show All</span>
                   <img width="16" height="16" src="/temp_assets/arrow-up-right.svg" alt="arrow-up-right" />
                 </a>
-              </div>
+              </div> */}
             </div>
             <div className="book-grid-system">
-                {products.map((p) => <ProductCard key={p.title} {...p} />)}
+              {products.map((p) => <ProductCard key={p.title} {...p} />)}
             </div>
           </div>
         </div>
