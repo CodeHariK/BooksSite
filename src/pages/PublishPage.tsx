@@ -86,7 +86,7 @@ const PublishPage: React.FC = () => {
           <p className="sec-desc">Every book begins with an idea. If you have written one worth sharing, we would love to read it.</p>
         </div>
 
-        <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '50px' }}>
+        <div className="split-layout">
 
           {/* Instructions Column */}
           <div className="publish-info" style={{ lineHeight: '1.6' }}>
@@ -116,7 +116,7 @@ const PublishPage: React.FC = () => {
           </div>
 
           {/* Form Column */}
-          <div style={{ backgroundColor: '#fff', padding: '40px', borderRadius: '16px', boxShadow: '0 4px 25px rgba(0,0,0,0.07)' }}>
+          <div className="publish-form-container" style={{ backgroundColor: '#fff', padding: '30px', borderRadius: '16px', boxShadow: '0 4px 25px rgba(0,0,0,0.07)' }}>
             {isSuccess ? (
               <div style={{ textAlign: 'center', padding: '20px' }}>
                 <div style={{ padding: '20px', backgroundColor: '#e6fffa', color: '#2c7a7b', borderRadius: '8px', marginBottom: '20px', border: '1px solid #81e6d9' }}>
@@ -148,7 +148,7 @@ const PublishPage: React.FC = () => {
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
+                <div className="responsive-form-row">
                   <div>
                     <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Email</label>
                     <input
@@ -175,7 +175,7 @@ const PublishPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
+                <div className="responsive-form-row">
                   <div>
                     <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Genre</label>
                     <input

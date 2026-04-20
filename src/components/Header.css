@@ -22,8 +22,15 @@
 }
 
 @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .search-status {
@@ -95,16 +102,96 @@
     margin-top: 2px;
 }
 
+/* Mobile Responsive Styles (1000px Threshold) */
+@media (max-width: 1000px) {
+    .menu-list-container {
+        display: none !important;
+    }
+
+    .spacer {
+        display: none !important;
+    }
+
+    .user-name-header {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .icons-list {
+        gap: 15px !important;
+    }
+
+    .profile-dropdown {
+        width: 220px !important;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+}
+
+.profile-dropdown-container {
+    position: relative;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 180px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 8px 0;
+}
+
+.profile-dropdown-container:hover .profile-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #475569;
+    text-decoration: none;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.dropdown-item:hover {
+    background-color: #ffe5ff;
+    color: #333;
+    padding-left: 24px;
+}
+
+.logout-btn {
+    color: #ef4444;
+}
+
+.logout-btn:hover {
+    background-color: #fff1f2;
+    color: #be123c;
+}
+
 /* Custom Scrollbar for dropdown */
-.search-dropdown::-webkit-scrollbar {
-    width: 6px;
+.profile-dropdown::-webkit-scrollbar {
+    width: 4px;
 }
 
-.search-dropdown::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.search-dropdown::-webkit-scrollbar-thumb {
+.profile-dropdown::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }

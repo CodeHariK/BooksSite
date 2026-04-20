@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Header.css';
 
-
-
 const Header: React.FC = () => {
   const { user, userProfile, logout } = useAuth();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <header className="shopify-section header-section sticky">
       <div className="main-header-container">
         <div className="container">
           <div className="header-container">
-            {/* Mobile Menu Icon */}
-            <div className="mob-menu d-768-block" style={{ display: 'none' }}>
-              <img src="/temp_assets/menu.svg" alt="Menu" width="30" height="30" />
-            </div>
-
             {/* Logo */}
             <div className="header-logo-container">
               <Link to="/">
@@ -37,35 +40,46 @@ const Header: React.FC = () => {
               </ul>
             </nav>
 
-            <div className="d-767-none" style={{ flex: 1 }}></div>
+            <div className="spacer" style={{ flex: 1 }}></div>
 
             {/* Icons List */}
             <div className="icons-list">
               <div className="icons-list-item profile-dropdown-container">
-                {user ? (
-                  <>
-                    <div className="profile-trigger" style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                      <img
-                        src={userProfile?.imageUrl || "/temp_assets/account.svg"}
-                        alt="Profile"
-                        width="32" height="32"
-                        style={{ borderRadius: '50%', objectFit: 'cover' }}
-                      />
-                      <span style={{ textTransform: 'capitalize' }}>
-                        {user.displayName || user.email?.split('@')[0]}
-                      </span>
-                    </div>
-                    <div className="profile-dropdown">
+                <div className="profile-trigger" style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                  <img
+                    src={userProfile?.imageUrl || "/temp_assets/account.svg"}
+                    alt="Profile"
+                    width="32" height="32"
+                    style={{ borderRadius: '50%', objectFit: 'cover' }}
+                  />
+                  <span className="user-name-header">
+                    {user ? (user.displayName || user.email?.split('@')[0]) : 'Menu'}
+                  </span>
+                </div>
+                
+                <div className="profile-dropdown">
+                  {/* Show Nav Links in Dropdown on Mobile */}
+                  {windowWidth <= 1000 && (
+                    <>
+                      <Link to="/" className="dropdown-item">Home</Link>
+                      <Link to="/catalogue" className="dropdown-item">Book Catalogue</Link>
+                      <Link to="/buy" className="dropdown-item">Buy Books</Link>
+                      <Link to="/publish" className="dropdown-item">Publish with Us</Link>
+                      <Link to="/contact" className="dropdown-item">Contact</Link>
+                      <Link to="/about" className="dropdown-item">About</Link>
+                      <div style={{ height: '1px', background: '#eee', margin: '5px 0' }} />
+                    </>
+                  )}
+                  
+                  {user ? (
+                    <>
                       <Link to="/profile" className="dropdown-item">View Profile</Link>
                       <button onClick={logout} className="dropdown-item logout-btn">Logout</button>
-                    </div>
-                  </>
-                ) : (
-                  <Link to="/login" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'inherit' }}>
-                    <img src="/temp_assets/account.svg" alt="Login" width="30" height="30" />
-                    <span>Login</span>
-                  </Link>
-                )}
+                    </>
+                  ) : (
+                    <Link to="/login" className="dropdown-item">Login / Register</Link>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -74,7 +88,6 @@ const Header: React.FC = () => {
     </header>
   );
 };
-
 
 export default Header;
 

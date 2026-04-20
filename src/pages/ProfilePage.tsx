@@ -5,6 +5,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage, db } from '../firebase';
 import { collection, query, where, getDocs, orderBy, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import type { Book } from '../types';
+import ConfirmModal from '../components/ConfirmModal';
 import './ProfilePage.css';
 
 const ProfilePage: React.FC = () => {
@@ -20,6 +21,8 @@ const ProfilePage: React.FC = () => {
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
   const [myBooks, setMyBooks] = useState<Book[]>([]);
   const [booksLoading, setBooksLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [deletingBookId, setDeletingBookId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -102,7 +105,11 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  const handleUnpublish = async (bookId: string) => {
+  const handleUnpublish = async (e: React.MouseEvent, bookId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setActionLoading(bookId);
+    setMessage(null);
     try {
       const bookRef = doc(db, 'books', bookId);
       await updateDoc(bookRef, { isPublished: false });
@@ -111,12 +118,23 @@ const ProfilePage: React.FC = () => {
     } catch (error) {
       console.error("Error unpublishing book:", error);
       setMessage({ type: 'error', text: 'Failed to unpublish book.' });
+    } finally {
+      setActionLoading(null);
     }
   };
 
-  const handleDeleteBook = async (bookId: string) => {
-    if (!window.confirm("Are you sure you want to permanently delete this book? This action cannot be undone.")) return;
+  const handleDeleteBook = async (e: React.MouseEvent, bookId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDeletingBookId(bookId);
+  };
 
+  const confirmDelete = async () => {
+    if (!deletingBookId) return;
+    const bookId = deletingBookId;
+    setDeletingBookId(null);
+    setActionLoading(bookId);
+    setMessage(null);
     try {
       const bookRef = doc(db, 'books', bookId);
       await deleteDoc(bookRef);
@@ -125,6 +143,8 @@ const ProfilePage: React.FC = () => {
     } catch (error) {
       console.error("Error deleting book:", error);
       setMessage({ type: 'error', text: 'Failed to delete book.' });
+    } finally {
+      setActionLoading(null);
     }
   };
 
@@ -284,17 +304,21 @@ const ProfilePage: React.FC = () => {
                       <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '12px', borderTop: '1px solid #f1f5f9' }}>
                         {book.isPublished && (
                           <button
-                            onClick={() => handleUnpublish(book.id!)}
-                            style={{ flex: 1, padding: '8px', borderRadius: '8px', border: '1px solid #e2e8f0', background: '#fff', fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}
+                            type="button"
+                            onClick={(e) => handleUnpublish(e, book.id!)}
+                            disabled={actionLoading === book.id}
+                            style={{ flex: 1, padding: '8px', borderRadius: '8px', border: '1px solid #e2e8f0', background: '#fff', fontSize: '12px', fontWeight: '600', cursor: actionLoading === book.id ? 'not-allowed' : 'pointer' }}
                           >
-                            Unpublish
+                            {actionLoading === book.id ? '...' : 'Unpublish'}
                           </button>
                         )}
                         <button
-                          onClick={() => handleDeleteBook(book.id!)}
-                          style={{ flex: 1, padding: '8px', borderRadius: '8px', border: '1px solid #fee2e2', background: '#fef2f2', color: '#dc2626', fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}
+                          type="button"
+                          onClick={(e) => handleDeleteBook(e, book.id!)}
+                          disabled={actionLoading === book.id}
+                          style={{ flex: 1, padding: '8px', borderRadius: '8px', border: '1px solid #fee2e2', background: '#fef2f2', color: '#dc2626', fontSize: '12px', fontWeight: '600', cursor: actionLoading === book.id ? 'not-allowed' : 'pointer' }}
                         >
-                          Delete
+                          {actionLoading === book.id ? 'Deleting...' : 'Delete'}
                         </button>
                       </div>
                     </div>
@@ -305,6 +329,17 @@ const ProfilePage: React.FC = () => {
           </main>
         </div>
       </div>
+
+      {deletingBookId && (
+        <ConfirmModal 
+          title="Delete Book?"
+          message="Are you sure you want to permanently delete this book? This action cannot be undone."
+          confirmLabel="Delete"
+          isDanger={true}
+          onConfirm={confirmDelete}
+          onClose={() => setDeletingBookId(null)}
+        />
+      )}
     </div>
   );
 };

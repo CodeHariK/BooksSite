@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import type { UserProfile, AuthorStatus, Book } from '../types';
 import EditBookModal from '../components/EditBookModal';
+import ConfirmModal from '../components/ConfirmModal';
 
 const AdminPage: React.FC = () => {
   const { userProfile, loading: authLoading } = useAuth();
@@ -16,6 +17,11 @@ const AdminPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [editingBook, setEditingBook] = useState<Book | null>(null);
+  const [confirmModal, setConfirmModal] = useState<{
+    type: 'book' | 'user';
+    id: string;
+    title: string;
+  } | null>(null);
 
   const fetchUsers = async () => {
     try {
@@ -140,27 +146,30 @@ const AdminPage: React.FC = () => {
     }
   };
 
-  const deleteBook = async (bookId: string) => {
-    if (!window.confirm("Are you sure you want to delete this book? This cannot be undone.")) return;
-    setActionLoading(bookId);
-    try {
-      await deleteDoc(doc(db, 'books', bookId));
-      setBooks(prev => prev.filter(b => b.id !== bookId));
-    } catch (error) {
-      alert("Error deleting book");
-    } finally {
-      setActionLoading(null);
-    }
+  const deleteBook = (bookId: string, bookTitle: string) => {
+    setConfirmModal({ type: 'book', id: bookId, title: bookTitle });
   };
 
-  const deleteUser = async (userId: string) => {
-    if (!window.confirm("Are you sure? This will delete the user document.")) return;
-    setActionLoading(userId);
+  const deleteUser = (userId: string, userName: string) => {
+    setConfirmModal({ type: 'user', id: userId, title: userName });
+  };
+
+  const handleConfirmAction = async () => {
+    if (!confirmModal) return;
+    const { type, id } = confirmModal;
+    setConfirmModal(null);
+    setActionLoading(id);
+    
     try {
-      await deleteDoc(doc(db, 'users', userId));
-      setUsers(prev => prev.filter(u => u.uid !== userId));
+      if (type === 'book') {
+        await deleteDoc(doc(db, 'books', id));
+        setBooks(prev => prev.filter(b => b.id !== id));
+      } else {
+        await deleteDoc(doc(db, 'users', id));
+        setUsers(prev => prev.filter(u => u.uid !== id));
+      }
     } catch (error) {
-      alert("Error deleting user");
+      alert(`Error deleting ${type}`);
     } finally {
       setActionLoading(null);
     }
@@ -277,7 +286,7 @@ const AdminPage: React.FC = () => {
                     </td>
                     <td style={{ padding: '20px' }}>
                       <button 
-                        onClick={() => deleteUser(u.uid)}
+                        onClick={() => deleteUser(u.uid, u.displayName || u.email)}
                         disabled={actionLoading === u.uid}
                         style={{ color: '#dc3545', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
                       >
@@ -361,7 +370,7 @@ const AdminPage: React.FC = () => {
                           </button>
                         )}
                           <button 
-                            onClick={() => deleteBook(b.id!)}
+                            onClick={() => deleteBook(b.id!, b.title)}
                             disabled={actionLoading === b.id}
                             style={{ color: '#dc3545', background: 'none', border: 'none', cursor: 'pointer' }}
                           >
@@ -392,6 +401,17 @@ const AdminPage: React.FC = () => {
               setBooks(prev => prev.map(b => b.id === updatedBook.id ? updatedBook : b));
               setEditingBook(null);
             }}
+          />
+        )}
+
+        {confirmModal && (
+          <ConfirmModal
+            title={`Delete ${confirmModal.type === 'book' ? 'Book' : 'User'}?`}
+            message={`Are you sure you want to delete "${confirmModal.title}"? This action cannot be undone.`}
+            confirmLabel="Delete"
+            isDanger={true}
+            onConfirm={handleConfirmAction}
+            onClose={() => setConfirmModal(null)}
           />
         )}
       </div>

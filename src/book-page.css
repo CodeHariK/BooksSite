@@ -73,8 +73,13 @@
 }
 
 .pdp-banner-container .pdp-banner-slider-container .pdp-banner-slider-slide img {
-    width: 100%;
-    height: auto
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 600px;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
 }
 
 .pdp-banner-container .pdp-banner-slider-container .pdp-banner-slider-nav-container {
@@ -590,7 +595,7 @@
 
     .container {
         max-width: 100%;
-        padding-inline: 4.4444444444rem
+        padding-inline: 3rem
     }
 }
 

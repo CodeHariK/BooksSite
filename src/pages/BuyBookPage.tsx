@@ -66,7 +66,7 @@ const BuyBookPage: React.FC = () => {
                     <p className="sec-desc">Tell us what you're looking for, and we'll handle the rest.</p>
                 </div>
 
-                <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '50px' }}>
+                <div className="split-layout">
 
                     {/* Information Column */}
                     <div className="buy-info" style={{ lineHeight: '1.6' }}>

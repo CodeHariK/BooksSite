@@ -12,6 +12,7 @@ const SubmitBookPage: React.FC = () => {
   
   const [formData, setFormData] = useState<Partial<Book>>({
     title: '',
+    author: '',
     price: 0,
     originalPrice: 0,
     summary: '',
@@ -31,6 +32,12 @@ const SubmitBookPage: React.FC = () => {
       }
     }
   }, [user, userProfile, authLoading, navigate]);
+
+  useEffect(() => {
+    if (userProfile && !formData.author && userProfile.displayName) {
+      setFormData(prev => ({ ...prev, author: userProfile.displayName }));
+    }
+  }, [userProfile]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -66,7 +73,7 @@ const SubmitBookPage: React.FC = () => {
       // 2. Save Book Doc
       const bookData: Omit<Book, 'id'> = {
         title: (formData.title || '').toLowerCase(),
-        author: userProfile.displayName,
+        author: formData.author || userProfile.displayName,
         authorId: user.uid,
         price: formData.price || 0,
         originalPrice: formData.originalPrice || 0,
@@ -113,6 +120,19 @@ const SubmitBookPage: React.FC = () => {
                 onChange={handleChange}
                 required
                 placeholder="The amazing story of..."
+                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #ccc' }}
+              />
+            </div>
+
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Author Name</label>
+              <input
+                type="text"
+                name="author"
+                value={formData.author}
+                onChange={handleChange}
+                required
+                placeholder="Author Name"
                 style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #ccc' }}
               />
             </div>
